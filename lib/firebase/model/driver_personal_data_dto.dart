@@ -15,7 +15,7 @@ class DriverPersonalDataDto {
     required this.surname,
   });
 
-  factory DriverPersonalDataDto.fromFirebase({
+  factory DriverPersonalDataDto.fromFirestore({
     required String id,
     required Map<String, dynamic> json,
   }) {
@@ -27,5 +27,5 @@ class DriverPersonalDataDto {
     );
   }
 
-  Map<String, dynamic> toJson() => _$DriverPersonalDataDtoToJson(this);
+  Map<String, dynamic> toFirestore() => _$DriverPersonalDataDtoToJson(this);
 }
