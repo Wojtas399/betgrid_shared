@@ -42,27 +42,8 @@ class RaceBetPointsDto {
 
   factory RaceBetPointsDto.fromFirestore({
     required Map<String, dynamic> json,
-  }) {
-    final RaceBetPointsDto dto = _$RaceBetPointsDtoFromJson(json);
-    return RaceBetPointsDto(
-      totalPoints: dto.totalPoints,
-      p1Points: dto.p1Points,
-      p2Points: dto.p2Points,
-      p3Points: dto.p3Points,
-      p10Points: dto.p10Points,
-      fastestLap: dto.fastestLap,
-      podiumAndP: dto.podiumAndP,
-      podiumAndP10Multip: dto.podiumAndP10Multip,
-      dnfPoints: dto.dnfPoints,
-      dnfDriver1: dto.dnfDriver1,
-      dnfDriver2: dto.dnfDriver2,
-      dnfDriver3: dto.dnfDriver3,
-      dnfMultiplier: dto.dnfMultiplier,
-      safetyCarP: dto.safetyCarP,
-      redFlagPoints: dto.redFlagPoints,
-      safetyCarAndRedFlagPoints: dto.safetyCarAndRedFlagPoints,
-    );
-  }
+  }) =>
+      _$RaceBetPointsDtoFromJson(json);
 
   Map<String, dynamic> toFirestore() => _$RaceBetPointsDtoToJson(this);
 }
