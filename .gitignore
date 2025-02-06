@@ -2,6 +2,9 @@
 .fvm/
 .fvmrc
 
+# build_runner related
+*.g.dart
+
 .dart_tool/
 .idea/
 .vscode/
