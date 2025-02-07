@@ -3,9 +3,7 @@ import 'package:betgrid_shared/firebase/firebase_collections_references.dart';
 import '../model/season_grand_prix_dto.dart';
 
 class FirebaseSeasonGrandPrixService {
-  final FirebaseCollectionsReferences _firebaseCollectionsReferences;
-
-  const FirebaseSeasonGrandPrixService(this._firebaseCollectionsReferences);
+  final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
   Future<Iterable<SeasonGrandPrixDto>> fetchAllGrandPrixesFromSeason(
     int season,

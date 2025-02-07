@@ -3,9 +3,7 @@ import 'package:betgrid_shared/firebase/firebase_collections_references.dart';
 import '../model/season_team_dto.dart';
 
 class FirebaseSeasonTeamService {
-  final FirebaseCollectionsReferences _firebaseCollectionsReferences;
-
-  const FirebaseSeasonTeamService(this._firebaseCollectionsReferences);
+  final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
   Future<Iterable<SeasonTeamDto>> fetchAllTeamsFromSeason(int season) async {
     final snapshot =
