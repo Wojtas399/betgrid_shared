@@ -1,35 +1,12 @@
-import 'package:json_annotation/json_annotation.dart';
-
 import 'player_stats_points_for_driver_dto.dart';
 import 'player_stats_points_for_gp_dto.dart';
 
-part 'player_stats_dto.g.dart';
-
-@JsonSerializable()
 class PlayerStatsDto {
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final String playerId;
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final int season;
-  @JsonKey(
-    fromJson: _mapPlayerStatsPointsForGpFromFirestore,
-    toJson: _mapPlayerStatsPointsForGpToFirestore,
-  )
   final PlayerStatsPointsForGpDto bestGpPoints;
-  @JsonKey(
-    fromJson: _mapPlayerStatsPointsForGpFromFirestore,
-    toJson: _mapPlayerStatsPointsForGpToFirestore,
-  )
   final PlayerStatsPointsForGpDto bestQualiPoints;
-  @JsonKey(
-    fromJson: _mapPlayerStatsPointsForGpFromFirestore,
-    toJson: _mapPlayerStatsPointsForGpToFirestore,
-  )
   final PlayerStatsPointsForGpDto bestRacePoints;
-  @JsonKey(
-    fromJson: _mapPointsForDriversFromFirestore,
-    toJson: _mapPointsForDriversToFirestore,
-  )
   final List<PlayerStatsPointsForDriverDto> pointsForDrivers;
 
   const PlayerStatsDto({
@@ -46,28 +23,32 @@ class PlayerStatsDto {
     required int season,
     required Map<String, dynamic> json,
   }) {
-    final PlayerStatsDto dto = _$PlayerStatsDtoFromJson(json);
     return PlayerStatsDto(
       playerId: playerId,
       season: season,
-      bestGpPoints: dto.bestGpPoints,
-      bestQualiPoints: dto.bestQualiPoints,
-      bestRacePoints: dto.bestRacePoints,
-      pointsForDrivers: dto.pointsForDrivers,
+      bestGpPoints: PlayerStatsPointsForGpDto.fromFirestore(
+        json: json[PlayerStatsFields.bestGpPoints],
+      ),
+      bestQualiPoints: PlayerStatsPointsForGpDto.fromFirestore(
+        json: json[PlayerStatsFields.bestQualiPoints],
+      ),
+      bestRacePoints: PlayerStatsPointsForGpDto.fromFirestore(
+        json: json[PlayerStatsFields.bestRacePoints],
+      ),
+      pointsForDrivers: _mapPointsForDriversFromFirestore(
+        json[PlayerStatsFields.pointsForDrivers],
+      ),
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$PlayerStatsDtoToJson(this);
-
-  static PlayerStatsPointsForGpDto _mapPlayerStatsPointsForGpFromFirestore(
-    Map<String, dynamic> json,
-  ) =>
-      PlayerStatsPointsForGpDto.fromFirestore(json: json);
-
-  static Map<String, dynamic> _mapPlayerStatsPointsForGpToFirestore(
-    PlayerStatsPointsForGpDto dto,
-  ) =>
-      dto.toFirestore();
+  Map<String, dynamic> toFirestore() => {
+        PlayerStatsFields.bestGpPoints: bestGpPoints.toFirestore(),
+        PlayerStatsFields.bestQualiPoints: bestQualiPoints.toFirestore(),
+        PlayerStatsFields.bestRacePoints: bestRacePoints.toFirestore(),
+        PlayerStatsFields.pointsForDrivers: _mapPointsForDriversToFirestore(
+          pointsForDrivers,
+        ),
+      };
 
   static List<PlayerStatsPointsForDriverDto> _mapPointsForDriversFromFirestore(
     List<dynamic>? jsonsList,
@@ -82,4 +63,11 @@ class PlayerStatsDto {
     List<PlayerStatsPointsForDriverDto> dtos,
   ) =>
       dtos.map((e) => e.toFirestore()).toList();
+}
+
+class PlayerStatsFields {
+  static const bestGpPoints = 'bestGpPoints';
+  static const bestQualiPoints = 'bestQualiPoints';
+  static const bestRacePoints = 'bestRacePoints';
+  static const pointsForDrivers = 'pointsForDrivers';
 }

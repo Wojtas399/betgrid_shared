@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'race_bet_points_dto.g.dart';
-
-@JsonSerializable()
 class RaceBetPointsDto {
   final double totalPoints;
   final double p1Points;
@@ -43,7 +38,62 @@ class RaceBetPointsDto {
   factory RaceBetPointsDto.fromFirestore({
     required Map<String, dynamic> json,
   }) =>
-      _$RaceBetPointsDtoFromJson(json);
+      RaceBetPointsDto(
+        totalPoints: json[RaceBetPointsFields.totalPoints],
+        p1Points: json[RaceBetPointsFields.p1Points],
+        p2Points: json[RaceBetPointsFields.p2Points],
+        p3Points: json[RaceBetPointsFields.p3Points],
+        p10Points: json[RaceBetPointsFields.p10Points],
+        fastestLap: json[RaceBetPointsFields.fastestLap],
+        podiumAndP: json[RaceBetPointsFields.podiumAndP],
+        podiumAndP10Multip: json[RaceBetPointsFields.podiumAndP10Multip],
+        dnfPoints: json[RaceBetPointsFields.dnfPoints],
+        dnfDriver1: json[RaceBetPointsFields.dnfDriver1],
+        dnfDriver2: json[RaceBetPointsFields.dnfDriver2],
+        dnfDriver3: json[RaceBetPointsFields.dnfDriver3],
+        dnfMultiplier: json[RaceBetPointsFields.dnfMultiplier],
+        safetyCarP: json[RaceBetPointsFields.safetyCarP],
+        redFlagPoints: json[RaceBetPointsFields.redFlagPoints],
+        safetyCarAndRedFlagPoints:
+            json[RaceBetPointsFields.safetyCarAndRedFlagPoints],
+      );
 
-  Map<String, dynamic> toFirestore() => _$RaceBetPointsDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        RaceBetPointsFields.totalPoints: totalPoints,
+        RaceBetPointsFields.p1Points: p1Points,
+        RaceBetPointsFields.p2Points: p2Points,
+        RaceBetPointsFields.p3Points: p3Points,
+        RaceBetPointsFields.p10Points: p10Points,
+        RaceBetPointsFields.fastestLap: fastestLap,
+        RaceBetPointsFields.podiumAndP: podiumAndP,
+        RaceBetPointsFields.podiumAndP10Multip: podiumAndP10Multip,
+        RaceBetPointsFields.dnfPoints: dnfPoints,
+        RaceBetPointsFields.dnfDriver1: dnfDriver1,
+        RaceBetPointsFields.dnfDriver2: dnfDriver2,
+        RaceBetPointsFields.dnfDriver3: dnfDriver3,
+        RaceBetPointsFields.dnfMultiplier: dnfMultiplier,
+        RaceBetPointsFields.safetyCarP: safetyCarP,
+        RaceBetPointsFields.redFlagPoints: redFlagPoints,
+        RaceBetPointsFields.safetyCarAndRedFlagPoints:
+            safetyCarAndRedFlagPoints,
+      };
+}
+
+class RaceBetPointsFields {
+  static const totalPoints = 'totalPoints';
+  static const p1Points = 'p1Points';
+  static const p2Points = 'p2Points';
+  static const p3Points = 'p3Points';
+  static const p10Points = 'p10Points';
+  static const fastestLap = 'fastestLap';
+  static const podiumAndP = 'podiumAndP';
+  static const podiumAndP10Multip = 'podiumAndP10Multip';
+  static const dnfPoints = 'dnfPoints';
+  static const dnfDriver1 = 'dnfDriver1';
+  static const dnfDriver2 = 'dnfDriver2';
+  static const dnfDriver3 = 'dnfDriver3';
+  static const dnfMultiplier = 'dnfMultiplier';
+  static const safetyCarP = 'safetyCarP';
+  static const redFlagPoints = 'redFlagPoints';
+  static const safetyCarAndRedFlagPoints = 'safetyCarAndRedFlagPoints';
 }

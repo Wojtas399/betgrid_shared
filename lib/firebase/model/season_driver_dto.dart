@@ -1,10 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'season_driver_dto.g.dart';
-
-@JsonSerializable()
 class SeasonDriverDto {
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final String id;
   final int season;
   final String driverId;
@@ -21,17 +15,27 @@ class SeasonDriverDto {
 
   factory SeasonDriverDto.fromFirestore({
     required String id,
+    required int season,
     required Map<String, dynamic> json,
   }) {
-    final SeasonDriverDto dto = _$SeasonDriverDtoFromJson(json);
     return SeasonDriverDto(
       id: id,
-      season: dto.season,
-      driverId: dto.driverId,
-      driverNumber: dto.driverNumber,
-      teamId: dto.teamId,
+      season: season,
+      driverId: json[SeasonDriverFields.driverId],
+      driverNumber: json[SeasonDriverFields.driverNumber],
+      teamId: json[SeasonDriverFields.teamId],
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$SeasonDriverDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        SeasonDriverFields.driverId: driverId,
+        SeasonDriverFields.driverNumber: driverNumber,
+        SeasonDriverFields.teamId: teamId,
+      };
+}
+
+class SeasonDriverFields {
+  static const driverId = 'driverId';
+  static const driverNumber = 'driverNumber';
+  static const teamId = 'teamId';
 }

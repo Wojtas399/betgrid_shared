@@ -1,10 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'team_basic_info_dto.g.dart';
-
-@JsonSerializable()
 class TeamBasicInfoDto {
-  @JsonKey(includeToJson: false, includeFromJson: false)
   final String id;
   final String name;
   final String hexColor;
@@ -19,13 +13,20 @@ class TeamBasicInfoDto {
     required String id,
     required Map<String, dynamic> json,
   }) {
-    final TeamBasicInfoDto dto = _$TeamBasicInfoDtoFromJson(json);
     return TeamBasicInfoDto(
       id: id,
-      name: dto.name,
-      hexColor: dto.hexColor,
+      name: json[TeamBasicInfoFields.name],
+      hexColor: json[TeamBasicInfoFields.hexColor],
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$TeamBasicInfoDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        TeamBasicInfoFields.name: name,
+        TeamBasicInfoFields.hexColor: hexColor,
+      };
+}
+
+class TeamBasicInfoFields {
+  static const String name = 'name';
+  static const String hexColor = 'hexColor';
 }

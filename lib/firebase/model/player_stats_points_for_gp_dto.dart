@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'player_stats_points_for_gp_dto.g.dart';
-
-@JsonSerializable()
 class PlayerStatsPointsForGpDto {
   final String seasonGrandPrixId;
   final double points;
@@ -15,7 +10,18 @@ class PlayerStatsPointsForGpDto {
   factory PlayerStatsPointsForGpDto.fromFirestore({
     required Map<String, dynamic> json,
   }) =>
-      _$PlayerStatsPointsForGpDtoFromJson(json);
+      PlayerStatsPointsForGpDto(
+        seasonGrandPrixId: json[PlayerStatsPointsForGpFields.seasonGrandPrixId],
+        points: json[PlayerStatsPointsForGpFields.points],
+      );
 
-  Map<String, dynamic> toFirestore() => _$PlayerStatsPointsForGpDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        PlayerStatsPointsForGpFields.seasonGrandPrixId: seasonGrandPrixId,
+        PlayerStatsPointsForGpFields.points: points,
+      };
+}
+
+class PlayerStatsPointsForGpFields {
+  static const seasonGrandPrixId = 'seasonGrandPrixId';
+  static const points = 'points';
 }

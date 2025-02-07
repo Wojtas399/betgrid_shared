@@ -1,10 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'grand_prix_results_dto.g.dart';
-
-@JsonSerializable()
 class GrandPrixResultsDto {
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final String id;
   final String seasonGrandPrixId;
   final List<String?>? qualiStandingsBySeasonDriverIds;
@@ -35,21 +29,49 @@ class GrandPrixResultsDto {
     required String id,
     required Map<String, dynamic> json,
   }) {
-    final GrandPrixResultsDto dto = _$GrandPrixResultsDtoFromJson(json);
     return GrandPrixResultsDto(
       id: id,
-      seasonGrandPrixId: dto.seasonGrandPrixId,
-      qualiStandingsBySeasonDriverIds: dto.qualiStandingsBySeasonDriverIds,
-      p1SeasonDriverId: dto.p1SeasonDriverId,
-      p2SeasonDriverId: dto.p2SeasonDriverId,
-      p3SeasonDriverId: dto.p3SeasonDriverId,
-      p10SeasonDriverId: dto.p10SeasonDriverId,
-      fastestLapSeasonDriverId: dto.fastestLapSeasonDriverId,
-      dnfSeasonDriverIds: dto.dnfSeasonDriverIds,
-      wasThereSafetyCar: dto.wasThereSafetyCar,
-      wasThereRedFlag: dto.wasThereRedFlag,
+      seasonGrandPrixId: json[GrandPrixResultsFields.seasonGrandPrixId],
+      qualiStandingsBySeasonDriverIds:
+          json[GrandPrixResultsFields.qualiStandingsBySeasonDriverIds],
+      p1SeasonDriverId: json[GrandPrixResultsFields.p1SeasonDriverId],
+      p2SeasonDriverId: json[GrandPrixResultsFields.p2SeasonDriverId],
+      p3SeasonDriverId: json[GrandPrixResultsFields.p3SeasonDriverId],
+      p10SeasonDriverId: json[GrandPrixResultsFields.p10SeasonDriverId],
+      fastestLapSeasonDriverId:
+          json[GrandPrixResultsFields.fastestLapSeasonDriverId],
+      dnfSeasonDriverIds: json[GrandPrixResultsFields.dnfSeasonDriverIds],
+      wasThereSafetyCar: json[GrandPrixResultsFields.wasThereSafetyCar],
+      wasThereRedFlag: json[GrandPrixResultsFields.wasThereRedFlag],
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$GrandPrixResultsDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        GrandPrixResultsFields.seasonGrandPrixId: seasonGrandPrixId,
+        GrandPrixResultsFields.qualiStandingsBySeasonDriverIds:
+            qualiStandingsBySeasonDriverIds,
+        GrandPrixResultsFields.p1SeasonDriverId: p1SeasonDriverId,
+        GrandPrixResultsFields.p2SeasonDriverId: p2SeasonDriverId,
+        GrandPrixResultsFields.p3SeasonDriverId: p3SeasonDriverId,
+        GrandPrixResultsFields.p10SeasonDriverId: p10SeasonDriverId,
+        GrandPrixResultsFields.fastestLapSeasonDriverId:
+            fastestLapSeasonDriverId,
+        GrandPrixResultsFields.dnfSeasonDriverIds: dnfSeasonDriverIds,
+        GrandPrixResultsFields.wasThereSafetyCar: wasThereSafetyCar,
+        GrandPrixResultsFields.wasThereRedFlag: wasThereRedFlag,
+      };
+}
+
+class GrandPrixResultsFields {
+  static const seasonGrandPrixId = 'seasonGrandPrixId';
+  static const qualiStandingsBySeasonDriverIds =
+      'qualiStandingsBySeasonDriverIds';
+  static const p1SeasonDriverId = 'p1SeasonDriverId';
+  static const p2SeasonDriverId = 'p2SeasonDriverId';
+  static const p3SeasonDriverId = 'p3SeasonDriverId';
+  static const p10SeasonDriverId = 'p10SeasonDriverId';
+  static const fastestLapSeasonDriverId = 'fastestLapSeasonDriverId';
+  static const dnfSeasonDriverIds = 'dnfSeasonDriverIds';
+  static const wasThereSafetyCar = 'wasThereSafetyCar';
+  static const wasThereRedFlag = 'wasThereRedFlag';
 }

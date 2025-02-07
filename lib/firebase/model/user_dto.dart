@@ -1,10 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'user_dto.g.dart';
-
-@JsonSerializable()
 class UserDto {
-  @JsonKey(includeToJson: false, includeFromJson: false)
   final String id;
   final String username;
   final ThemeModeDto themeMode;
@@ -21,16 +15,19 @@ class UserDto {
     required String id,
     required Map<String, dynamic> json,
   }) {
-    final UserDto dto = _$UserDtoFromJson(json);
     return UserDto(
       id: id,
-      username: dto.username,
-      themeMode: dto.themeMode,
-      themePrimaryColor: dto.themePrimaryColor,
+      username: json[UserFields.username],
+      themeMode: json[UserFields.themeMode],
+      themePrimaryColor: json[UserFields.themePrimaryColor],
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$UserDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        UserFields.username: username,
+        UserFields.themeMode: themeMode,
+        UserFields.themePrimaryColor: themePrimaryColor,
+      };
 }
 
 enum ThemeModeDto { light, dark, system }
@@ -44,4 +41,10 @@ enum ThemePrimaryColorDto {
   yellow,
   green,
   blue,
+}
+
+class UserFields {
+  static const String username = 'username';
+  static const String themeMode = 'themeMode';
+  static const String themePrimaryColor = 'themePrimaryColor';
 }

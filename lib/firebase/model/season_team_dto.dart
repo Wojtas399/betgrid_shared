@@ -1,12 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'season_team_dto.g.dart';
-
-@JsonSerializable()
 class SeasonTeamDto {
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final String id;
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final int season;
   final String teamId;
 
@@ -21,13 +14,18 @@ class SeasonTeamDto {
     required int season,
     required Map<String, dynamic> json,
   }) {
-    final SeasonTeamDto dto = _$SeasonTeamDtoFromJson(json);
     return SeasonTeamDto(
       id: id,
       season: season,
-      teamId: dto.teamId,
+      teamId: json[SeasonTeamFields.teamId],
     );
   }
 
-  Map<String, dynamic> toFirestore() => _$SeasonTeamDtoToJson(this);
+  Map<String, dynamic> toFirestore() => {
+        SeasonTeamFields.teamId: teamId,
+      };
+}
+
+class SeasonTeamFields {
+  static const String teamId = 'teamId';
 }
