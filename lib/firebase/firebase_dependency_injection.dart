@@ -1,9 +1,23 @@
+import 'package:betgrid_shared/betgrid_shared.dart';
+import 'package:betgrid_shared/firebase/firebase_collections.dart';
 import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
 
-import 'firebase_dependency_injection.config.dart';
+import 'firebase_collections_references.dart';
 
-final getIt = GetIt.instance;
-
-@InjectableInit()
-void configureDependencies() => getIt.init();
+class FirebaseDependencyInjection {
+  static void configure(GetIt getIt) {
+    getIt.registerFactory(
+      () => FirebaseCollections(),
+    );
+    getIt.registerFactory(
+      () => FirebaseCollectionsReferences(
+        getIt<FirebaseCollections>(),
+      ),
+    );
+    getIt.registerFactory(
+      () => FirebaseDriverPersonalDataService(
+        getIt<FirebaseCollectionsReferences>(),
+      ),
+    );
+  }
+}
