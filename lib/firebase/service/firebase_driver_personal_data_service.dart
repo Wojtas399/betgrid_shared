@@ -1,13 +1,9 @@
 import 'package:betgrid_shared/firebase/firebase_collections_references.dart';
-import 'package:injectable/injectable.dart';
 
 import '../model/driver_personal_data_dto.dart';
 
-@injectable
 class FirebaseDriverPersonalDataService {
-  final FirebaseCollectionsReferences _firebaseCollectionsReferences;
-
-  const FirebaseDriverPersonalDataService(this._firebaseCollectionsReferences);
+  final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
   Future<List<DriverPersonalDataDto>> fetchAllDriversPersonalData() async {
     final snapshot =

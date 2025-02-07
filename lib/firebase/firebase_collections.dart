@@ -1,6 +1,3 @@
-import 'package:injectable/injectable.dart';
-
-@injectable
 class FirebaseCollections {
   String get grandPrixesBasicInfo => 'GrandPrixesBasicInfo';
   String get driversPersonalData => 'DriversPersonalData';

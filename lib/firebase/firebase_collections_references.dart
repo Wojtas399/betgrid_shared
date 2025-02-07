@@ -1,14 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:injectable/injectable.dart';
 
 import 'firebase_collections.dart';
 import 'model/driver_personal_data_dto.dart';
 
-@injectable
 class FirebaseCollectionsReferences {
-  final FirebaseCollections _firebaseCollections;
-
-  const FirebaseCollectionsReferences(this._firebaseCollections);
+  final _firebaseCollections = FirebaseCollections();
 
   CollectionReference<DriverPersonalDataDto> driversPersonalData() {
     return FirebaseFirestore.instance
