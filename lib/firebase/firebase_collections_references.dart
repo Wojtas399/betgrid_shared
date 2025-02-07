@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_collections.dart';
 import 'model/driver_personal_data_dto.dart';
 import 'model/grand_prix_basic_info_dto.dart';
+import 'model/season_driver_dto.dart';
 import 'model/team_basic_info_dto.dart';
 
 class FirebaseCollectionsReferences {
@@ -57,6 +58,27 @@ class FirebaseCollectionsReferences {
             );
           },
           toFirestore: (TeamBasicInfoDto dto, _) => dto.toFirestore(),
+        );
+  }
+
+  CollectionReference<SeasonDriverDto> seasonDrivers(int season) {
+    return FirebaseFirestore.instance
+        .collection(_firebaseCollections.season.main)
+        .doc(season.toString())
+        .collection(_firebaseCollections.season.drivers)
+        .withConverter<SeasonDriverDto>(
+          fromFirestore: (snapshot, _) {
+            final data = snapshot.data();
+            if (data == null) {
+              throw 'SeasonDriver document does not exist';
+            }
+            return SeasonDriverDto.fromFirestore(
+              id: snapshot.id,
+              season: season,
+              json: data,
+            );
+          },
+          toFirestore: (SeasonDriverDto dto, _) => dto.toFirestore(),
         );
   }
 }
