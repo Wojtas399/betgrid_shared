@@ -5,6 +5,7 @@ import 'model/driver_personal_data_dto.dart';
 import 'model/grand_prix_basic_info_dto.dart';
 import 'model/season_driver_dto.dart';
 import 'model/season_grand_prix_dto.dart';
+import 'model/season_team_dto.dart';
 import 'model/team_basic_info_dto.dart';
 
 class FirebaseCollectionsReferences {
@@ -63,9 +64,7 @@ class FirebaseCollectionsReferences {
   }
 
   CollectionReference<SeasonDriverDto> seasonDrivers(int season) {
-    return FirebaseFirestore.instance
-        .collection(_firebaseCollections.season.main)
-        .doc(season.toString())
+    return _season(season)
         .collection(_firebaseCollections.season.drivers)
         .withConverter<SeasonDriverDto>(
           fromFirestore: (snapshot, _) {
@@ -84,9 +83,7 @@ class FirebaseCollectionsReferences {
   }
 
   CollectionReference<SeasonGrandPrixDto> seasonGrandPrixes(int season) {
-    return FirebaseFirestore.instance
-        .collection(_firebaseCollections.season.main)
-        .doc(season.toString())
+    return _season(season)
         .collection(_firebaseCollections.season.grandPrixes)
         .withConverter<SeasonGrandPrixDto>(
           fromFirestore: (snapshot, _) {
@@ -100,5 +97,30 @@ class FirebaseCollectionsReferences {
           },
           toFirestore: (SeasonGrandPrixDto dto, _) => dto.toFirestore(),
         );
+  }
+
+  CollectionReference<SeasonTeamDto> seasonTeams(int season) {
+    return _season(season)
+        .collection(_firebaseCollections.season.teams)
+        .withConverter<SeasonTeamDto>(
+          fromFirestore: (snapshot, _) {
+            final data = snapshot.data();
+            if (data == null) {
+              throw 'SeasonTeam document does not exist';
+            }
+            return SeasonTeamDto.fromFirestore(
+              id: snapshot.id,
+              season: season,
+              json: data,
+            );
+          },
+          toFirestore: (SeasonTeamDto dto, _) => dto.toFirestore(),
+        );
+  }
+
+  DocumentReference<dynamic> _season(int season) {
+    return FirebaseFirestore.instance
+        .collection(_firebaseCollections.season.main)
+        .doc(season.toString());
   }
 }
