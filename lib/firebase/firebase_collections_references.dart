@@ -4,6 +4,7 @@ import 'firebase_collections.dart';
 import 'model/driver_personal_data_dto.dart';
 import 'model/grand_prix_basic_info_dto.dart';
 import 'model/season_driver_dto.dart';
+import 'model/season_grand_prix_dto.dart';
 import 'model/team_basic_info_dto.dart';
 
 class FirebaseCollectionsReferences {
@@ -79,6 +80,25 @@ class FirebaseCollectionsReferences {
             );
           },
           toFirestore: (SeasonDriverDto dto, _) => dto.toFirestore(),
+        );
+  }
+
+  CollectionReference<SeasonGrandPrixDto> seasonGrandPrixes(int season) {
+    return FirebaseFirestore.instance
+        .collection(_firebaseCollections.season.main)
+        .doc(season.toString())
+        .collection(_firebaseCollections.season.grandPrixes)
+        .withConverter<SeasonGrandPrixDto>(
+          fromFirestore: (snapshot, _) {
+            final data = snapshot.data();
+            if (data == null) throw 'SeasonGrandPrix document does not exist';
+            return SeasonGrandPrixDto.fromFirestore(
+              id: snapshot.id,
+              season: season,
+              json: data,
+            );
+          },
+          toFirestore: (SeasonGrandPrixDto dto, _) => dto.toFirestore(),
         );
   }
 }
