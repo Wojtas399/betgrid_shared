@@ -1,5 +1,4 @@
-import 'package:betgrid_shared/firebase/firebase_collections_references.dart';
-
+import '../firebase_collections_references.dart';
 import '../model/driver_personal_data_dto.dart';
 
 class FirebaseDriverPersonalDataService {

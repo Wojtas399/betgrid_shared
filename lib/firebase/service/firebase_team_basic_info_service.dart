@@ -1,5 +1,4 @@
-import 'package:betgrid_shared/firebase/firebase_collections_references.dart';
-
+import '../firebase_collections_references.dart';
 import '../model/team_basic_info_dto.dart';
 
 class FirebaseTeamBasicInfoService {
