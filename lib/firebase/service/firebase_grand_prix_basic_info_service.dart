@@ -10,6 +10,14 @@ class FirebaseGrandPrixBasicInfoService {
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
+  Future<GrandPrixBasicInfoDto?> fetchGrandPrixBasicInfoById(String id) async {
+    final snapshot = await _firebaseCollectionsReferences
+        .grandPrixesBasicInfo()
+        .doc(id)
+        .get();
+    return snapshot.data();
+  }
+
   Future<GrandPrixBasicInfoDto?> addGrandPrixBasicInfo({
     required String name,
     required String countryAlpha2Code,
