@@ -2,9 +2,7 @@ import '../firebase_collections_references.dart';
 import '../model/grand_prix_bet_dto.dart';
 
 class FirebaseGrandPrixBetService {
-  final FirebaseCollectionsReferences _firebaseCollectionsReferences;
-
-  const FirebaseGrandPrixBetService(this._firebaseCollectionsReferences);
+  final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
   Future<GrandPrixBetDto?> fetchGrandPrixBetBySeasonGrandPrixId({
     required String playerId,
