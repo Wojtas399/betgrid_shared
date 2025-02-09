@@ -62,7 +62,7 @@ class FirebaseGrandPrixBetService {
   Future<GrandPrixBetDto?> updateGrandPrixBet({
     required String userId,
     required int season,
-    required String grandPrixBetId,
+    required String seasonGrandPrixId,
     List<String?>? qualiStandingsBySeasonDriverIds,
     String? p1SeasonDriverId,
     String? p2SeasonDriverId,
@@ -78,7 +78,7 @@ class FirebaseGrandPrixBetService {
           userId: userId,
           season: season,
         )
-        .doc(grandPrixBetId);
+        .doc(seasonGrandPrixId);
     await docRef.update({
       if (qualiStandingsBySeasonDriverIds != null)
         GrandPrixBetFields.qualiStandingsBySeasonDriverIds:
