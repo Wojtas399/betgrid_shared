@@ -1,6 +1,7 @@
 class GrandPrixBetDto {
   final String id;
   final String playerId;
+  final int season;
   final String seasonGrandPrixId;
   final List<String?> qualiStandingsBySeasonDriverIds;
   final String? p1SeasonDriverId;
@@ -15,6 +16,7 @@ class GrandPrixBetDto {
   const GrandPrixBetDto({
     this.id = '',
     this.playerId = '',
+    this.season = 0,
     required this.seasonGrandPrixId,
     required this.qualiStandingsBySeasonDriverIds,
     this.p1SeasonDriverId,
@@ -30,11 +32,13 @@ class GrandPrixBetDto {
   factory GrandPrixBetDto.fromFirestore({
     required String id,
     required String playerId,
+    required int season,
     required Map<String, dynamic> json,
   }) {
     return GrandPrixBetDto(
       id: id,
       playerId: playerId,
+      season: season,
       seasonGrandPrixId: json[GrandPrixBetFields.seasonGrandPrixId],
       qualiStandingsBySeasonDriverIds:
           json[GrandPrixBetFields.qualiStandingsBySeasonDriverIds],

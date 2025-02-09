@@ -20,6 +20,14 @@ class FirebaseUsersCollections {
   const FirebaseUsersCollections();
 
   String get main => 'Users';
+  FirebaseUsersSeasonCollections get season =>
+      const FirebaseUsersSeasonCollections();
+}
+
+class FirebaseUsersSeasonCollections {
+  const FirebaseUsersSeasonCollections();
+
+  String get main => 'Season';
   String get stats => 'Stats';
   String get grandPrixesBets => 'GrandPrixBets';
   String get grandPrixesBetPoints => 'GrandPrixBetPoints';
