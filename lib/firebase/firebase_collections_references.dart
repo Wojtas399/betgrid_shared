@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_collections.dart';
 import 'model/driver_personal_data_dto.dart';
 import 'model/grand_prix_basic_info_dto.dart';
+import 'model/grand_prix_bet_dto.dart';
 import 'model/season_driver_dto.dart';
 import 'model/season_grand_prix_dto.dart';
 import 'model/season_team_dto.dart';
@@ -117,6 +118,24 @@ class FirebaseCollectionsReferences {
           toFirestore: (SeasonTeamDto dto, _) => dto.toFirestore(),
         );
   }
+
+  CollectionReference<GrandPrixBetDto> grandPrixesBets(String userId) =>
+      FirebaseFirestore.instance
+          .collection(_firebaseCollections.users.main)
+          .doc(userId)
+          .collection(_firebaseCollections.users.grandPrixesBets)
+          .withConverter<GrandPrixBetDto>(
+            fromFirestore: (snapshot, _) {
+              final data = snapshot.data();
+              if (data == null) throw 'Grand prix bet document was null';
+              return GrandPrixBetDto.fromFirestore(
+                id: snapshot.id,
+                playerId: userId,
+                json: data,
+              );
+            },
+            toFirestore: (GrandPrixBetDto dto, _) => dto.toFirestore(),
+          );
 
   DocumentReference<dynamic> _season(int season) {
     return FirebaseFirestore.instance
