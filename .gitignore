@@ -8,4 +8,12 @@
 .dart_tool/
 .idea/
 .vscode/
+.flutter-plugins
+.flutter-plugins-dependencies
+betgrid_shared.iml
 
+# Firebase related
+firebase.json
+storage.rules
+firestore-debug.log
+firebase-debug.log
