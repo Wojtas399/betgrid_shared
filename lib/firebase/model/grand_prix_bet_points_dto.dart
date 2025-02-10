@@ -1,9 +1,10 @@
-import 'package:betgrid_shared/firebase/model/quali_bet_points_dto.dart';
-import 'package:betgrid_shared/firebase/model/race_bet_points_dto.dart';
+import 'quali_bet_points_dto.dart';
+import 'race_bet_points_dto.dart';
 
 class GrandPrixBetPointsDto {
   final String id;
   final String playerId;
+  final int season;
   final String seasonGrandPrixId;
   final double totalPoints;
   final QualiBetPointsDto? qualiBetPointsDto;
@@ -12,6 +13,7 @@ class GrandPrixBetPointsDto {
   const GrandPrixBetPointsDto({
     this.id = '',
     this.playerId = '',
+    this.season = 0,
     required this.seasonGrandPrixId,
     required this.totalPoints,
     this.qualiBetPointsDto,
@@ -21,11 +23,13 @@ class GrandPrixBetPointsDto {
   factory GrandPrixBetPointsDto.fromFirestore({
     required String id,
     required String playerId,
+    required int season,
     required Map<String, dynamic> json,
   }) {
     return GrandPrixBetPointsDto(
       id: id,
       playerId: playerId,
+      season: season,
       seasonGrandPrixId: json[GrandPrixBetPointsFields.seasonGrandPrixId],
       totalPoints: json[GrandPrixBetPointsFields.totalPoints],
       qualiBetPointsDto: _mapQualiBetPointsFromFirestore(

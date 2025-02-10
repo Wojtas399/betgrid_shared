@@ -140,10 +140,10 @@ class FirebaseCollectionsReferences {
             toFirestore: (GrandPrixBetDto dto, _) => dto.toFirestore(),
           );
 
-  CollectionReference<GrandPrixBetPointsDto> grandPrixesBetPoints(
-    String userId,
-    int season,
-  ) =>
+  CollectionReference<GrandPrixBetPointsDto> grandPrixesBetPoints({
+    required String userId,
+    required int season,
+  }) =>
       _userSeason(userId, season)
           .collection(_firebaseCollections.users.season.grandPrixesBetPoints)
           .withConverter<GrandPrixBetPointsDto>(
@@ -153,6 +153,7 @@ class FirebaseCollectionsReferences {
               return GrandPrixBetPointsDto.fromFirestore(
                 id: snapshot.id,
                 playerId: userId,
+                season: season,
                 json: data,
               );
             },
