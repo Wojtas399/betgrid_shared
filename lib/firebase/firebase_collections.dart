@@ -10,10 +10,10 @@ class FirebaseSeasonCollections {
   const FirebaseSeasonCollections();
 
   String get main => 'Season';
-  String get grandPrixes => 'GrandPrixes';
   String get drivers => 'Drivers';
-  String get teams => 'Teams';
+  String get grandPrixes => 'GrandPrixes';
   String get grandPrixesResults => 'GrandPrixesResults';
+  String get teams => 'Teams';
 }
 
 class FirebaseUsersCollections {
@@ -28,7 +28,7 @@ class FirebaseUsersSeasonCollections {
   const FirebaseUsersSeasonCollections();
 
   String get main => 'Season';
-  String get stats => 'Stats';
   String get grandPrixesBets => 'GrandPrixBets';
   String get grandPrixesBetPoints => 'GrandPrixBetPoints';
+  String get stats => 'Stats';
 }

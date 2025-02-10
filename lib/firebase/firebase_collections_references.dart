@@ -7,6 +7,7 @@ import 'model/grand_prix_bet_dto.dart';
 import 'model/grand_prix_bet_points_dto.dart';
 import 'model/season_driver_dto.dart';
 import 'model/season_grand_prix_dto.dart';
+import 'model/season_grand_prix_results_dto.dart';
 import 'model/season_team_dto.dart';
 import 'model/team_basic_info_dto.dart';
 
@@ -98,6 +99,27 @@ class FirebaseCollectionsReferences {
             );
           },
           toFirestore: (SeasonGrandPrixDto dto, _) => dto.toFirestore(),
+        );
+  }
+
+  CollectionReference<SeasonGrandPrixResultsDto> seasonGrandPrixesResults(
+    int season,
+  ) {
+    return _season(season)
+        .collection(_firebaseCollections.season.grandPrixesResults)
+        .withConverter<SeasonGrandPrixResultsDto>(
+          fromFirestore: (snapshot, _) {
+            final data = snapshot.data();
+            if (data == null) {
+              throw 'SeasonGrandPrixResults document does not exist';
+            }
+            return SeasonGrandPrixResultsDto.fromFirestore(
+              id: snapshot.id,
+              season: season,
+              json: data,
+            );
+          },
+          toFirestore: (SeasonGrandPrixResultsDto dto, _) => dto.toFirestore(),
         );
   }
 
