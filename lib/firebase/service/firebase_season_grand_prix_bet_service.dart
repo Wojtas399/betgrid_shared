@@ -1,16 +1,16 @@
 import '../firebase_collections_references.dart';
-import '../model/grand_prix_bet_dto.dart';
+import '../model/season_grand_prix_bet_dto.dart';
 
-class FirebaseGrandPrixBetService {
+class FirebaseSeasonGrandPrixBetService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<GrandPrixBetDto?> fetchGrandPrixBetBySeasonGrandPrixId({
+  Future<SeasonGrandPrixBetDto?> fetchBySeasonGrandPrixId({
     required String userId,
     required int season,
     required String seasonGrandPrixId,
   }) async {
     final snapshot = await _firebaseCollectionsReferences
-        .grandPrixesBets(
+        .seasonGrandPrixesBets(
           userId: userId,
           season: season,
         )
@@ -23,7 +23,7 @@ class FirebaseGrandPrixBetService {
     return snapshot.docs.first.data();
   }
 
-  Future<GrandPrixBetDto?> addGrandPrixBet({
+  Future<SeasonGrandPrixBetDto?> add({
     required String userId,
     required int season,
     required String seasonGrandPrixId,
@@ -37,7 +37,7 @@ class FirebaseGrandPrixBetService {
     bool? willBeSafetyCar,
     bool? willBeRedFlag,
   }) async {
-    final grandPrixBetDto = GrandPrixBetDto(
+    final seasonGrandPrixBetDto = SeasonGrandPrixBetDto(
       seasonGrandPrixId: seasonGrandPrixId,
       qualiStandingsBySeasonDriverIds: qualiStandingsBySeasonDriverIds,
       p1SeasonDriverId: p1SeasonDriverId,
@@ -50,16 +50,16 @@ class FirebaseGrandPrixBetService {
       willBeRedFlag: willBeRedFlag,
     );
     final docRef = await _firebaseCollectionsReferences
-        .grandPrixesBets(
+        .seasonGrandPrixesBets(
           userId: userId,
           season: season,
         )
-        .add(grandPrixBetDto);
+        .add(seasonGrandPrixBetDto);
     final snapshot = await docRef.get();
     return snapshot.data();
   }
 
-  Future<GrandPrixBetDto?> updateGrandPrixBet({
+  Future<SeasonGrandPrixBetDto?> update({
     required String userId,
     required int season,
     required String seasonGrandPrixId,
@@ -74,7 +74,7 @@ class FirebaseGrandPrixBetService {
     bool? willBeRedFlag,
   }) async {
     final docRef = _firebaseCollectionsReferences
-        .grandPrixesBets(
+        .seasonGrandPrixesBets(
           userId: userId,
           season: season,
         )

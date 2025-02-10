@@ -1,4 +1,4 @@
-class GrandPrixBetDto {
+class SeasonGrandPrixBetDto {
   final String id;
   final String playerId;
   final int season;
@@ -13,7 +13,7 @@ class GrandPrixBetDto {
   final bool? willBeSafetyCar;
   final bool? willBeRedFlag;
 
-  const GrandPrixBetDto({
+  const SeasonGrandPrixBetDto({
     this.id = '',
     this.playerId = '',
     this.season = 0,
@@ -29,13 +29,13 @@ class GrandPrixBetDto {
     this.willBeRedFlag,
   });
 
-  factory GrandPrixBetDto.fromFirestore({
+  factory SeasonGrandPrixBetDto.fromFirestore({
     required String id,
-    required String playerId,
     required int season,
+    required String playerId,
     required Map<String, dynamic> json,
   }) {
-    return GrandPrixBetDto(
+    return SeasonGrandPrixBetDto(
       id: id,
       playerId: playerId,
       season: season,
