@@ -1,58 +1,58 @@
 class QualiBetPointsDto {
-  final double totalPoints;
-  final double q3P1Points;
-  final double q3P2Points;
-  final double q3P3Points;
-  final double q3P4Points;
-  final double q3P5Points;
-  final double q3P6Points;
-  final double q3P7Points;
-  final double q3P8Points;
-  final double q3P9Points;
-  final double q3P10Points;
-  final double q2P11Points;
-  final double q2P12Points;
-  final double q2P13Points;
-  final double q2P14Points;
-  final double q2P15Points;
-  final double q1P16Points;
-  final double q1P17Points;
-  final double q1P18Points;
-  final double q1P19Points;
-  final double q1P20Points;
-  final double q1Points;
-  final double q2Points;
-  final double q3Points;
+  final double total;
+  final double q3P1;
+  final double q3P2;
+  final double q3P3;
+  final double q3P4;
+  final double q3P5;
+  final double q3P6;
+  final double q3P7;
+  final double q3P8;
+  final double q3P9;
+  final double q3P10;
+  final double q2P11;
+  final double q2P12;
+  final double q2P13;
+  final double q2P14;
+  final double q2P15;
+  final double q1P16;
+  final double q1P17;
+  final double q1P18;
+  final double q1P19;
+  final double q1P20;
+  final double totalQ1;
+  final double totalQ2;
+  final double totalQ3;
   final double? q1Multiplier;
   final double? q2Multiplier;
   final double? q3Multiplier;
   final double? multiplier;
 
   const QualiBetPointsDto({
-    required this.totalPoints,
-    required this.q3P1Points,
-    required this.q3P2Points,
-    required this.q3P3Points,
-    required this.q3P4Points,
-    required this.q3P5Points,
-    required this.q3P6Points,
-    required this.q3P7Points,
-    required this.q3P8Points,
-    required this.q3P9Points,
-    required this.q3P10Points,
-    required this.q2P11Points,
-    required this.q2P12Points,
-    required this.q2P13Points,
-    required this.q2P14Points,
-    required this.q2P15Points,
-    required this.q1P16Points,
-    required this.q1P17Points,
-    required this.q1P18Points,
-    required this.q1P19Points,
-    required this.q1P20Points,
-    required this.q1Points,
-    required this.q2Points,
-    required this.q3Points,
+    required this.total,
+    required this.q3P1,
+    required this.q3P2,
+    required this.q3P3,
+    required this.q3P4,
+    required this.q3P5,
+    required this.q3P6,
+    required this.q3P7,
+    required this.q3P8,
+    required this.q3P9,
+    required this.q3P10,
+    required this.q2P11,
+    required this.q2P12,
+    required this.q2P13,
+    required this.q2P14,
+    required this.q2P15,
+    required this.q1P16,
+    required this.q1P17,
+    required this.q1P18,
+    required this.q1P19,
+    required this.q1P20,
+    required this.totalQ1,
+    required this.totalQ2,
+    required this.totalQ3,
     this.q1Multiplier,
     this.q2Multiplier,
     this.q3Multiplier,
@@ -63,30 +63,30 @@ class QualiBetPointsDto {
     required Map<String, dynamic> json,
   }) =>
       QualiBetPointsDto(
-        totalPoints: json[QualiBetPointsFields.totalPoints],
-        q3P1Points: json[QualiBetPointsFields.q3P1Points],
-        q3P2Points: json[QualiBetPointsFields.q3P2Points],
-        q3P3Points: json[QualiBetPointsFields.q3P3Points],
-        q3P4Points: json[QualiBetPointsFields.q3P4Points],
-        q3P5Points: json[QualiBetPointsFields.q3P5Points],
-        q3P6Points: json[QualiBetPointsFields.q3P6Points],
-        q3P7Points: json[QualiBetPointsFields.q3P7Points],
-        q3P8Points: json[QualiBetPointsFields.q3P8Points],
-        q3P9Points: json[QualiBetPointsFields.q3P9Points],
-        q3P10Points: json[QualiBetPointsFields.q3P10Points],
-        q2P11Points: json[QualiBetPointsFields.q2P11Points],
-        q2P12Points: json[QualiBetPointsFields.q2P12Points],
-        q2P13Points: json[QualiBetPointsFields.q2P13Points],
-        q2P14Points: json[QualiBetPointsFields.q2P14Points],
-        q2P15Points: json[QualiBetPointsFields.q2P15Points],
-        q1P16Points: json[QualiBetPointsFields.q1P16Points],
-        q1P17Points: json[QualiBetPointsFields.q1P17Points],
-        q1P18Points: json[QualiBetPointsFields.q1P18Points],
-        q1P19Points: json[QualiBetPointsFields.q1P19Points],
-        q1P20Points: json[QualiBetPointsFields.q1P20Points],
-        q1Points: json[QualiBetPointsFields.q1Points],
-        q2Points: json[QualiBetPointsFields.q2Points],
-        q3Points: json[QualiBetPointsFields.q3Points],
+        total: json[QualiBetPointsFields.total],
+        q3P1: json[QualiBetPointsFields.q3P1],
+        q3P2: json[QualiBetPointsFields.q3P2],
+        q3P3: json[QualiBetPointsFields.q3P3],
+        q3P4: json[QualiBetPointsFields.q3P4],
+        q3P5: json[QualiBetPointsFields.q3P5],
+        q3P6: json[QualiBetPointsFields.q3P6],
+        q3P7: json[QualiBetPointsFields.q3P7],
+        q3P8: json[QualiBetPointsFields.q3P8],
+        q3P9: json[QualiBetPointsFields.q3P9],
+        q3P10: json[QualiBetPointsFields.q3P10],
+        q2P11: json[QualiBetPointsFields.q2P11],
+        q2P12: json[QualiBetPointsFields.q2P12],
+        q2P13: json[QualiBetPointsFields.q2P13],
+        q2P14: json[QualiBetPointsFields.q2P14],
+        q2P15: json[QualiBetPointsFields.q2P15],
+        q1P16: json[QualiBetPointsFields.q1P16],
+        q1P17: json[QualiBetPointsFields.q1P17],
+        q1P18: json[QualiBetPointsFields.q1P18],
+        q1P19: json[QualiBetPointsFields.q1P19],
+        q1P20: json[QualiBetPointsFields.q1P20],
+        totalQ1: json[QualiBetPointsFields.totalQ1],
+        totalQ2: json[QualiBetPointsFields.totalQ2],
+        totalQ3: json[QualiBetPointsFields.totalQ3],
         q1Multiplier: json[QualiBetPointsFields.q1Multiplier],
         q2Multiplier: json[QualiBetPointsFields.q2Multiplier],
         q3Multiplier: json[QualiBetPointsFields.q3Multiplier],
@@ -94,30 +94,30 @@ class QualiBetPointsDto {
       );
 
   Map<String, dynamic> toFirestore() => {
-        QualiBetPointsFields.totalPoints: totalPoints,
-        QualiBetPointsFields.q3P1Points: q3P1Points,
-        QualiBetPointsFields.q3P2Points: q3P2Points,
-        QualiBetPointsFields.q3P3Points: q3P3Points,
-        QualiBetPointsFields.q3P4Points: q3P4Points,
-        QualiBetPointsFields.q3P5Points: q3P5Points,
-        QualiBetPointsFields.q3P6Points: q3P6Points,
-        QualiBetPointsFields.q3P7Points: q3P7Points,
-        QualiBetPointsFields.q3P8Points: q3P8Points,
-        QualiBetPointsFields.q3P9Points: q3P9Points,
-        QualiBetPointsFields.q3P10Points: q3P10Points,
-        QualiBetPointsFields.q2P11Points: q2P11Points,
-        QualiBetPointsFields.q2P12Points: q2P12Points,
-        QualiBetPointsFields.q2P13Points: q2P13Points,
-        QualiBetPointsFields.q2P14Points: q2P14Points,
-        QualiBetPointsFields.q2P15Points: q2P15Points,
-        QualiBetPointsFields.q1P16Points: q1P16Points,
-        QualiBetPointsFields.q1P17Points: q1P17Points,
-        QualiBetPointsFields.q1P18Points: q1P18Points,
-        QualiBetPointsFields.q1P19Points: q1P19Points,
-        QualiBetPointsFields.q1P20Points: q1P20Points,
-        QualiBetPointsFields.q1Points: q1Points,
-        QualiBetPointsFields.q2Points: q2Points,
-        QualiBetPointsFields.q3Points: q3Points,
+        QualiBetPointsFields.total: total,
+        QualiBetPointsFields.q3P1: q3P1,
+        QualiBetPointsFields.q3P2: q3P2,
+        QualiBetPointsFields.q3P3: q3P3,
+        QualiBetPointsFields.q3P4: q3P4,
+        QualiBetPointsFields.q3P5: q3P5,
+        QualiBetPointsFields.q3P6: q3P6,
+        QualiBetPointsFields.q3P7: q3P7,
+        QualiBetPointsFields.q3P8: q3P8,
+        QualiBetPointsFields.q3P9: q3P9,
+        QualiBetPointsFields.q3P10: q3P10,
+        QualiBetPointsFields.q2P11: q2P11,
+        QualiBetPointsFields.q2P12: q2P12,
+        QualiBetPointsFields.q2P13: q2P13,
+        QualiBetPointsFields.q2P14: q2P14,
+        QualiBetPointsFields.q2P15: q2P15,
+        QualiBetPointsFields.q1P16: q1P16,
+        QualiBetPointsFields.q1P17: q1P17,
+        QualiBetPointsFields.q1P18: q1P18,
+        QualiBetPointsFields.q1P19: q1P19,
+        QualiBetPointsFields.q1P20: q1P20,
+        QualiBetPointsFields.totalQ1: totalQ1,
+        QualiBetPointsFields.totalQ2: totalQ2,
+        QualiBetPointsFields.totalQ3: totalQ3,
         QualiBetPointsFields.q1Multiplier: q1Multiplier,
         QualiBetPointsFields.q2Multiplier: q2Multiplier,
         QualiBetPointsFields.q3Multiplier: q3Multiplier,
@@ -126,30 +126,30 @@ class QualiBetPointsDto {
 }
 
 class QualiBetPointsFields {
-  static const totalPoints = 'totalPoints';
-  static const q3P1Points = 'q3P1Points';
-  static const q3P2Points = 'q3P2Points';
-  static const q3P3Points = 'q3P3Points';
-  static const q3P4Points = 'q3P4Points';
-  static const q3P5Points = 'q3P5Points';
-  static const q3P6Points = 'q3P6Points';
-  static const q3P7Points = 'q3P7Points';
-  static const q3P8Points = 'q3P8Points';
-  static const q3P9Points = 'q3P9Points';
-  static const q3P10Points = 'q3P10Points';
-  static const q2P11Points = 'q2P11Points';
-  static const q2P12Points = 'q2P12Points';
-  static const q2P13Points = 'q2P13Points';
-  static const q2P14Points = 'q2P14Points';
-  static const q2P15Points = 'q2P15Points';
-  static const q1P16Points = 'q1P16Points';
-  static const q1P17Points = 'q1P17Points';
-  static const q1P18Points = 'q1P18Points';
-  static const q1P19Points = 'q1P19Points';
-  static const q1P20Points = 'q1P20Points';
-  static const q1Points = 'q1Points';
-  static const q2Points = 'q2Points';
-  static const q3Points = 'q3Points';
+  static const total = 'total';
+  static const q3P1 = 'q3P1';
+  static const q3P2 = 'q3P2';
+  static const q3P3 = 'q3P3';
+  static const q3P4 = 'q3P4';
+  static const q3P5 = 'q3P5';
+  static const q3P6 = 'q3P6';
+  static const q3P7 = 'q3P7';
+  static const q3P8 = 'q3P8';
+  static const q3P9 = 'q3P9';
+  static const q3P10 = 'q3P10';
+  static const q2P11 = 'q2P11';
+  static const q2P12 = 'q2P12';
+  static const q2P13 = 'q2P13';
+  static const q2P14 = 'q2P14';
+  static const q2P15 = 'q2P15';
+  static const q1P16 = 'q1P16';
+  static const q1P17 = 'q1P17';
+  static const q1P18 = 'q1P18';
+  static const q1P19 = 'q1P19';
+  static const q1P20 = 'q1P20';
+  static const totalQ1 = 'totalQ1';
+  static const totalQ2 = 'totalQ2';
+  static const totalQ3 = 'totalQ3';
   static const q1Multiplier = 'q1Multiplier';
   static const q2Multiplier = 'q2Multiplier';
   static const q3Multiplier = 'q3Multiplier';
