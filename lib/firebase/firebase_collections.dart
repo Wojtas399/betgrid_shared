@@ -30,5 +30,4 @@ class FirebaseUsersSeasonCollections {
   String get main => 'Season';
   String get grandPrixesBets => 'GrandPrixBets';
   String get grandPrixesBetPoints => 'GrandPrixBetPoints';
-  String get stats => 'Stats';
 }
