@@ -10,6 +10,7 @@ import 'model/season_grand_prix_dto.dart';
 import 'model/season_grand_prix_results_dto.dart';
 import 'model/season_team_dto.dart';
 import 'model/team_basic_info_dto.dart';
+import 'model/user_dto.dart';
 import 'model/user_stats_dto.dart';
 
 class FirebaseCollectionsReferences {
@@ -140,6 +141,24 @@ class FirebaseCollectionsReferences {
             );
           },
           toFirestore: (SeasonTeamDto dto, _) => dto.toFirestore(),
+        );
+  }
+
+  CollectionReference<UserDto> users() {
+    return FirebaseFirestore.instance
+        .collection(_firebaseCollections.users.main)
+        .withConverter<UserDto>(
+          fromFirestore: (snapshot, _) {
+            final data = snapshot.data();
+            if (data == null) {
+              throw 'User document does not exist';
+            }
+            return UserDto.fromFirestore(
+              id: snapshot.id,
+              json: data,
+            );
+          },
+          toFirestore: (UserDto dto, _) => dto.toFirestore(),
         );
   }
 
