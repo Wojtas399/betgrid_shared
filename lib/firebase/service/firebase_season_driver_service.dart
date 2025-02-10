@@ -4,15 +4,24 @@ import '../model/season_driver_dto.dart';
 class FirebaseSeasonDriverService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<Iterable<SeasonDriverDto>> fetchAllDriversFromSeason(
-    int season,
-  ) async {
+  Future<Iterable<SeasonDriverDto>> fetchAllFromSeason(int season) async {
     final snapshot =
         await _firebaseCollectionsReferences.seasonDrivers(season).get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<SeasonDriverDto?> addSeasonDriver({
+  Future<SeasonDriverDto?> fetchById({
+    required int season,
+    required String seasonDriverId,
+  }) async {
+    final snapshot = await _firebaseCollectionsReferences
+        .seasonDrivers(season)
+        .doc(seasonDriverId)
+        .get();
+    return snapshot.data();
+  }
+
+  Future<SeasonDriverDto?> add({
     required int season,
     required String driverId,
     required int driverNumber,
@@ -30,7 +39,7 @@ class FirebaseSeasonDriverService {
     return snapshot.data();
   }
 
-  Future<void> deleteSeasonDriver({
+  Future<void> delete({
     required int season,
     required String seasonDriverId,
   }) async {
