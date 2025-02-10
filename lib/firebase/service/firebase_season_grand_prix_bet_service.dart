@@ -15,7 +15,7 @@ class FirebaseSeasonGrandPrixBetService {
           season: season,
         )
         .where(
-          GrandPrixBetFields.seasonGrandPrixId,
+          SeasonGrandPrixBetFields.seasonGrandPrixId,
           isEqualTo: seasonGrandPrixId,
         )
         .get();
@@ -81,17 +81,18 @@ class FirebaseSeasonGrandPrixBetService {
         .doc(seasonGrandPrixId);
     await docRef.update({
       if (qualiStandingsBySeasonDriverIds != null)
-        GrandPrixBetFields.qualiStandingsBySeasonDriverIds:
+        SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds:
             qualiStandingsBySeasonDriverIds,
       if (dnfSeasonDriverIds != null)
-        GrandPrixBetFields.dnfSeasonDriverIds: dnfSeasonDriverIds,
-      GrandPrixBetFields.p1SeasonDriverId: p1SeasonDriverId,
-      GrandPrixBetFields.p2SeasonDriverId: p2SeasonDriverId,
-      GrandPrixBetFields.p3SeasonDriverId: p3SeasonDriverId,
-      GrandPrixBetFields.p10SeasonDriverId: p10SeasonDriverId,
-      GrandPrixBetFields.fastestLapSeasonDriverId: fastestLapSeasonDriverId,
-      GrandPrixBetFields.willBeSafetyCar: willBeSafetyCar,
-      GrandPrixBetFields.willBeRedFlag: willBeRedFlag,
+        SeasonGrandPrixBetFields.dnfSeasonDriverIds: dnfSeasonDriverIds,
+      SeasonGrandPrixBetFields.p1SeasonDriverId: p1SeasonDriverId,
+      SeasonGrandPrixBetFields.p2SeasonDriverId: p2SeasonDriverId,
+      SeasonGrandPrixBetFields.p3SeasonDriverId: p3SeasonDriverId,
+      SeasonGrandPrixBetFields.p10SeasonDriverId: p10SeasonDriverId,
+      SeasonGrandPrixBetFields.fastestLapSeasonDriverId:
+          fastestLapSeasonDriverId,
+      SeasonGrandPrixBetFields.willBeSafetyCar: willBeSafetyCar,
+      SeasonGrandPrixBetFields.willBeRedFlag: willBeRedFlag,
     });
     final snapshot = await docRef.get();
     return snapshot.data();

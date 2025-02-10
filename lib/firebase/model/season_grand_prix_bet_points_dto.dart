@@ -1,18 +1,18 @@
 import 'quali_bet_points_dto.dart';
 import 'race_bet_points_dto.dart';
 
-class GrandPrixBetPointsDto {
+class SeasonGrandPrixBetPointsDto {
   final String id;
-  final String playerId;
+  final String userId;
   final int season;
   final String seasonGrandPrixId;
   final double totalPoints;
   final QualiBetPointsDto? qualiBetPointsDto;
   final RaceBetPointsDto? raceBetPointsDto;
 
-  const GrandPrixBetPointsDto({
+  const SeasonGrandPrixBetPointsDto({
     this.id = '',
-    this.playerId = '',
+    this.userId = '',
     this.season = 0,
     required this.seasonGrandPrixId,
     required this.totalPoints,
@@ -20,33 +20,34 @@ class GrandPrixBetPointsDto {
     this.raceBetPointsDto,
   });
 
-  factory GrandPrixBetPointsDto.fromFirestore({
+  factory SeasonGrandPrixBetPointsDto.fromFirestore({
     required String id,
-    required String playerId,
+    required String userId,
     required int season,
     required Map<String, dynamic> json,
   }) {
-    return GrandPrixBetPointsDto(
+    return SeasonGrandPrixBetPointsDto(
       id: id,
-      playerId: playerId,
+      userId: userId,
       season: season,
-      seasonGrandPrixId: json[GrandPrixBetPointsFields.seasonGrandPrixId],
-      totalPoints: json[GrandPrixBetPointsFields.totalPoints],
+      seasonGrandPrixId: json[SeasonGrandPrixBetPointsFields.seasonGrandPrixId],
+      totalPoints: json[SeasonGrandPrixBetPointsFields.totalPoints],
       qualiBetPointsDto: _mapQualiBetPointsFromFirestore(
-        json[GrandPrixBetPointsFields.qualiBetPoints],
+        json[SeasonGrandPrixBetPointsFields.qualiBetPoints],
       ),
       raceBetPointsDto: _mapRaceBetPointsFromFirestore(
-        json[GrandPrixBetPointsFields.raceBetPoints],
+        json[SeasonGrandPrixBetPointsFields.raceBetPoints],
       ),
     );
   }
 
   Map<String, Object?> toFirestore() => {
-        GrandPrixBetPointsFields.seasonGrandPrixId: seasonGrandPrixId,
-        GrandPrixBetPointsFields.totalPoints: totalPoints,
-        GrandPrixBetPointsFields.qualiBetPoints:
+        SeasonGrandPrixBetPointsFields.seasonGrandPrixId: seasonGrandPrixId,
+        SeasonGrandPrixBetPointsFields.totalPoints: totalPoints,
+        SeasonGrandPrixBetPointsFields.qualiBetPoints:
             qualiBetPointsDto?.toFirestore(),
-        GrandPrixBetPointsFields.raceBetPoints: raceBetPointsDto?.toFirestore(),
+        SeasonGrandPrixBetPointsFields.raceBetPoints:
+            raceBetPointsDto?.toFirestore(),
       };
 
   static QualiBetPointsDto? _mapQualiBetPointsFromFirestore(
@@ -60,7 +61,7 @@ class GrandPrixBetPointsDto {
       json != null ? RaceBetPointsDto.fromFirestore(json: json) : null;
 }
 
-class GrandPrixBetPointsFields {
+class SeasonGrandPrixBetPointsFields {
   static const seasonGrandPrixId = 'seasonGrandPrixId';
   static const totalPoints = 'totalPoints';
   static const qualiBetPoints = 'qualiBetPoints';

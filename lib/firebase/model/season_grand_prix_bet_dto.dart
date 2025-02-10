@@ -1,6 +1,6 @@
 class SeasonGrandPrixBetDto {
   final String id;
-  final String playerId;
+  final String userId;
   final int season;
   final String seasonGrandPrixId;
   final List<String?> qualiStandingsBySeasonDriverIds;
@@ -15,7 +15,7 @@ class SeasonGrandPrixBetDto {
 
   const SeasonGrandPrixBetDto({
     this.id = '',
-    this.playerId = '',
+    this.userId = '',
     this.season = 0,
     required this.seasonGrandPrixId,
     required this.qualiStandingsBySeasonDriverIds,
@@ -32,44 +32,45 @@ class SeasonGrandPrixBetDto {
   factory SeasonGrandPrixBetDto.fromFirestore({
     required String id,
     required int season,
-    required String playerId,
+    required String userId,
     required Map<String, dynamic> json,
   }) {
     return SeasonGrandPrixBetDto(
       id: id,
-      playerId: playerId,
+      userId: userId,
       season: season,
-      seasonGrandPrixId: json[GrandPrixBetFields.seasonGrandPrixId],
+      seasonGrandPrixId: json[SeasonGrandPrixBetFields.seasonGrandPrixId],
       qualiStandingsBySeasonDriverIds:
-          json[GrandPrixBetFields.qualiStandingsBySeasonDriverIds],
-      p1SeasonDriverId: json[GrandPrixBetFields.p1SeasonDriverId],
-      p2SeasonDriverId: json[GrandPrixBetFields.p2SeasonDriverId],
-      p3SeasonDriverId: json[GrandPrixBetFields.p3SeasonDriverId],
-      p10SeasonDriverId: json[GrandPrixBetFields.p10SeasonDriverId],
+          json[SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds],
+      p1SeasonDriverId: json[SeasonGrandPrixBetFields.p1SeasonDriverId],
+      p2SeasonDriverId: json[SeasonGrandPrixBetFields.p2SeasonDriverId],
+      p3SeasonDriverId: json[SeasonGrandPrixBetFields.p3SeasonDriverId],
+      p10SeasonDriverId: json[SeasonGrandPrixBetFields.p10SeasonDriverId],
       fastestLapSeasonDriverId:
-          json[GrandPrixBetFields.fastestLapSeasonDriverId],
-      dnfSeasonDriverIds: json[GrandPrixBetFields.dnfSeasonDriverIds],
-      willBeSafetyCar: json[GrandPrixBetFields.willBeSafetyCar],
-      willBeRedFlag: json[GrandPrixBetFields.willBeRedFlag],
+          json[SeasonGrandPrixBetFields.fastestLapSeasonDriverId],
+      dnfSeasonDriverIds: json[SeasonGrandPrixBetFields.dnfSeasonDriverIds],
+      willBeSafetyCar: json[SeasonGrandPrixBetFields.willBeSafetyCar],
+      willBeRedFlag: json[SeasonGrandPrixBetFields.willBeRedFlag],
     );
   }
 
   Map<String, dynamic> toFirestore() => {
-        GrandPrixBetFields.seasonGrandPrixId: seasonGrandPrixId,
-        GrandPrixBetFields.qualiStandingsBySeasonDriverIds:
+        SeasonGrandPrixBetFields.seasonGrandPrixId: seasonGrandPrixId,
+        SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds:
             qualiStandingsBySeasonDriverIds,
-        GrandPrixBetFields.p1SeasonDriverId: p1SeasonDriverId,
-        GrandPrixBetFields.p2SeasonDriverId: p2SeasonDriverId,
-        GrandPrixBetFields.p3SeasonDriverId: p3SeasonDriverId,
-        GrandPrixBetFields.p10SeasonDriverId: p10SeasonDriverId,
-        GrandPrixBetFields.fastestLapSeasonDriverId: fastestLapSeasonDriverId,
-        GrandPrixBetFields.dnfSeasonDriverIds: dnfSeasonDriverIds,
-        GrandPrixBetFields.willBeSafetyCar: willBeSafetyCar,
-        GrandPrixBetFields.willBeRedFlag: willBeRedFlag,
+        SeasonGrandPrixBetFields.p1SeasonDriverId: p1SeasonDriverId,
+        SeasonGrandPrixBetFields.p2SeasonDriverId: p2SeasonDriverId,
+        SeasonGrandPrixBetFields.p3SeasonDriverId: p3SeasonDriverId,
+        SeasonGrandPrixBetFields.p10SeasonDriverId: p10SeasonDriverId,
+        SeasonGrandPrixBetFields.fastestLapSeasonDriverId:
+            fastestLapSeasonDriverId,
+        SeasonGrandPrixBetFields.dnfSeasonDriverIds: dnfSeasonDriverIds,
+        SeasonGrandPrixBetFields.willBeSafetyCar: willBeSafetyCar,
+        SeasonGrandPrixBetFields.willBeRedFlag: willBeRedFlag,
       };
 }
 
-class GrandPrixBetFields {
+class SeasonGrandPrixBetFields {
   static const seasonGrandPrixId = 'seasonGrandPrixId';
   static const qualiStandingsBySeasonDriverIds =
       'qualiStandingsBySeasonDriverIds';

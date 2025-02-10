@@ -4,7 +4,7 @@ import 'firebase_collections.dart';
 import 'model/driver_personal_data_dto.dart';
 import 'model/grand_prix_basic_info_dto.dart';
 import 'model/season_grand_prix_bet_dto.dart';
-import 'model/grand_prix_bet_points_dto.dart';
+import 'model/season_grand_prix_bet_points_dto.dart';
 import 'model/season_driver_dto.dart';
 import 'model/season_grand_prix_dto.dart';
 import 'model/season_grand_prix_results_dto.dart';
@@ -155,7 +155,7 @@ class FirebaseCollectionsReferences {
               if (data == null) throw 'SeasonGrandPrixBet document was null';
               return SeasonGrandPrixBetDto.fromFirestore(
                 id: snapshot.id,
-                playerId: userId,
+                userId: userId,
                 season: season,
                 json: data,
               );
@@ -163,24 +163,27 @@ class FirebaseCollectionsReferences {
             toFirestore: (SeasonGrandPrixBetDto dto, _) => dto.toFirestore(),
           );
 
-  CollectionReference<GrandPrixBetPointsDto> grandPrixesBetPoints({
+  CollectionReference<SeasonGrandPrixBetPointsDto> seasonGrandPrixesBetPoints({
     required String userId,
     required int season,
   }) =>
       _userSeason(userId, season)
           .collection(_firebaseCollections.users.season.grandPrixesBetPoints)
-          .withConverter<GrandPrixBetPointsDto>(
+          .withConverter<SeasonGrandPrixBetPointsDto>(
             fromFirestore: (snapshot, _) {
               final data = snapshot.data();
-              if (data == null) throw 'Grand prix bet points document was null';
-              return GrandPrixBetPointsDto.fromFirestore(
+              if (data == null) {
+                throw 'SeasonGrandPrixBetPoints document was null';
+              }
+              return SeasonGrandPrixBetPointsDto.fromFirestore(
                 id: snapshot.id,
-                playerId: userId,
+                userId: userId,
                 season: season,
                 json: data,
               );
             },
-            toFirestore: (GrandPrixBetPointsDto dto, _) => dto.toFirestore(),
+            toFirestore: (SeasonGrandPrixBetPointsDto dto, _) =>
+                dto.toFirestore(),
           );
 
   DocumentReference<UserStatsDto> userStats({

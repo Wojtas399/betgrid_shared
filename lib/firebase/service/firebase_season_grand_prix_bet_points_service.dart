@@ -1,21 +1,21 @@
 import '../firebase_collections_references.dart';
-import '../model/grand_prix_bet_points_dto.dart';
+import '../model/season_grand_prix_bet_points_dto.dart';
 
-class FirebaseGrandPrixBetPointsService {
+class FirebaseSeasonGrandPrixBetPointsService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<GrandPrixBetPointsDto?> fetchGrandPrixBetPoints({
+  Future<SeasonGrandPrixBetPointsDto?> fetchBySeasonGrandPrixId({
     required String userId,
     required int season,
     required String seasonGrandPrixId,
   }) async {
     final snapshot = await _firebaseCollectionsReferences
-        .grandPrixesBetPoints(
+        .seasonGrandPrixesBetPoints(
           userId: userId,
           season: season,
         )
         .where(
-          GrandPrixBetPointsFields.seasonGrandPrixId,
+          SeasonGrandPrixBetPointsFields.seasonGrandPrixId,
           isEqualTo: seasonGrandPrixId,
         )
         .limit(1)
