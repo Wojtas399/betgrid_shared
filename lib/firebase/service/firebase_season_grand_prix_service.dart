@@ -4,15 +4,24 @@ import '../model/season_grand_prix_dto.dart';
 class FirebaseSeasonGrandPrixService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<Iterable<SeasonGrandPrixDto>> fetchAllGrandPrixesFromSeason(
-    int season,
-  ) async {
+  Future<Iterable<SeasonGrandPrixDto>> fetchAllFromSeason(int season) async {
     final snapshot =
         await _firebaseCollectionsReferences.seasonGrandPrixes(season).get();
     return snapshot.docs.map((doc) => doc.data());
   }
 
-  Future<SeasonGrandPrixDto?> addSeasonGrandPrix({
+  Future<SeasonGrandPrixDto?> fetchById({
+    required int season,
+    required String seasonGrandPrixId,
+  }) async {
+    final snapshot = await _firebaseCollectionsReferences
+        .seasonGrandPrixes(season)
+        .doc(seasonGrandPrixId)
+        .get();
+    return snapshot.data();
+  }
+
+  Future<SeasonGrandPrixDto?> add({
     required int season,
     required String grandPrixId,
     required int roundNumber,
@@ -32,7 +41,7 @@ class FirebaseSeasonGrandPrixService {
     return snapshot.data();
   }
 
-  Future<void> deleteSeasonGrandPrix({
+  Future<void> delete({
     required int season,
     required String seasonGrandPrixId,
   }) async {
