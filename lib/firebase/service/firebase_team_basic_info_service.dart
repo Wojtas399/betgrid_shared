@@ -4,19 +4,19 @@ import '../model/team_basic_info_dto.dart';
 class FirebaseTeamBasicInfoService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<Iterable<TeamBasicInfoDto>> fetchAllTeamsBasicInfo() async {
+  Future<Iterable<TeamBasicInfoDto>> fetchAll() async {
     final snapshot =
         await _firebaseCollectionsReferences.teamsBasicInfo().get();
     return snapshot.docs.map((doc) => doc.data());
   }
 
-  Future<TeamBasicInfoDto?> fetchTeamBasicInfoById(String id) async {
+  Future<TeamBasicInfoDto?> fetchById(String id) async {
     final snapshot =
         await _firebaseCollectionsReferences.teamsBasicInfo().doc(id).get();
     return snapshot.data();
   }
 
-  Future<TeamBasicInfoDto?> addTeamBasicInfo({
+  Future<TeamBasicInfoDto?> add({
     required String name,
     required String hexColor,
   }) async {
@@ -30,7 +30,7 @@ class FirebaseTeamBasicInfoService {
     return snapshot.data();
   }
 
-  Future<void> deleteTeamBasicInfo(String id) async {
+  Future<void> delete(String id) async {
     await _firebaseCollectionsReferences.teamsBasicInfo().doc(id).delete();
   }
 }
