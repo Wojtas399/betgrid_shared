@@ -25,16 +25,16 @@ class SeasonGrandPrixDto {
       season: season,
       grandPrixId: json[SeasonGrandPrixFields.grandPrixId],
       roundNumber: json[SeasonGrandPrixFields.roundNumber],
-      startDate: json[SeasonGrandPrixFields.startDate],
-      endDate: json[SeasonGrandPrixFields.endDate],
+      startDate: DateTime.parse(json[SeasonGrandPrixFields.startDate]),
+      endDate: DateTime.parse(json[SeasonGrandPrixFields.endDate]),
     );
   }
 
   Map<String, dynamic> toFirestore() => {
         SeasonGrandPrixFields.grandPrixId: grandPrixId,
         SeasonGrandPrixFields.roundNumber: roundNumber,
-        SeasonGrandPrixFields.startDate: startDate,
-        SeasonGrandPrixFields.endDate: endDate,
+        SeasonGrandPrixFields.startDate: startDate.toIso8601String(),
+        SeasonGrandPrixFields.endDate: endDate.toIso8601String(),
       };
 }
 
