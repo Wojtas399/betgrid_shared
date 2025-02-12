@@ -41,14 +41,18 @@ class SeasonGrandPrixBetDto {
       season: season,
       seasonGrandPrixId: json[SeasonGrandPrixBetFields.seasonGrandPrixId],
       qualiStandingsBySeasonDriverIds:
-          json[SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds],
+          (json[SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds]
+                  as List)
+              .cast<String>(),
       p1SeasonDriverId: json[SeasonGrandPrixBetFields.p1SeasonDriverId],
       p2SeasonDriverId: json[SeasonGrandPrixBetFields.p2SeasonDriverId],
       p3SeasonDriverId: json[SeasonGrandPrixBetFields.p3SeasonDriverId],
       p10SeasonDriverId: json[SeasonGrandPrixBetFields.p10SeasonDriverId],
       fastestLapSeasonDriverId:
           json[SeasonGrandPrixBetFields.fastestLapSeasonDriverId],
-      dnfSeasonDriverIds: json[SeasonGrandPrixBetFields.dnfSeasonDriverIds],
+      dnfSeasonDriverIds:
+          (json[SeasonGrandPrixBetFields.dnfSeasonDriverIds] as List)
+              .cast<String>(),
       willBeSafetyCar: json[SeasonGrandPrixBetFields.willBeSafetyCar],
       willBeRedFlag: json[SeasonGrandPrixBetFields.willBeRedFlag],
     );
