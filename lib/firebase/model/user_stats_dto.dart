@@ -33,7 +33,7 @@ class UserStatsDto {
     return UserStatsDto(
       userId: userId,
       season: season,
-      totalPoints: json[UserStatsFields.totalPoints],
+      totalPoints: (json[UserStatsFields.totalPoints] as num).toDouble(),
       bestGpPoints: bestGpPointsJson != null
           ? UserStatsPointsForGpDto.fromFirestore(json: bestGpPointsJson)
           : null,
