@@ -14,10 +14,10 @@ class UserStatsDto {
     this.userId = '',
     this.season = 0,
     required this.totalPoints,
-    required this.bestGpPoints,
-    required this.bestQualiPoints,
-    required this.bestRacePoints,
-    required this.pointsForDrivers,
+    this.bestGpPoints,
+    this.bestQualiPoints,
+    this.bestRacePoints,
+    this.pointsForDrivers,
   });
 
   factory UserStatsDto.fromFirestore({
