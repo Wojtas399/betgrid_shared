@@ -4,6 +4,7 @@ import 'user_stats_points_for_gp_dto.dart';
 class UserStatsDto {
   final String userId;
   final int season;
+  final double totalPoints;
   final UserStatsPointsForGpDto bestGpPoints;
   final UserStatsPointsForGpDto bestQualiPoints;
   final UserStatsPointsForGpDto bestRacePoints;
@@ -12,6 +13,7 @@ class UserStatsDto {
   const UserStatsDto({
     this.userId = '',
     this.season = 0,
+    required this.totalPoints,
     required this.bestGpPoints,
     required this.bestQualiPoints,
     required this.bestRacePoints,
@@ -26,6 +28,7 @@ class UserStatsDto {
     return UserStatsDto(
       userId: userId,
       season: season,
+      totalPoints: json[UserStatsFields.totalPoints],
       bestGpPoints: UserStatsPointsForGpDto.fromFirestore(
         json: json[UserStatsFields.bestGpPoints],
       ),
@@ -42,6 +45,7 @@ class UserStatsDto {
   }
 
   Map<String, dynamic> toFirestore() => {
+        UserStatsFields.totalPoints: totalPoints,
         UserStatsFields.bestGpPoints: bestGpPoints.toFirestore(),
         UserStatsFields.bestQualiPoints: bestQualiPoints.toFirestore(),
         UserStatsFields.bestRacePoints: bestRacePoints.toFirestore(),
@@ -66,6 +70,7 @@ class UserStatsDto {
 }
 
 class UserStatsFields {
+  static const totalPoints = 'totalPoints';
   static const bestGpPoints = 'bestGpPoints';
   static const bestQualiPoints = 'bestQualiPoints';
   static const bestRacePoints = 'bestRacePoints';
