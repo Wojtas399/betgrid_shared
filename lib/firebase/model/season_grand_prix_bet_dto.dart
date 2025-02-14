@@ -43,7 +43,7 @@ class SeasonGrandPrixBetDto {
       qualiStandingsBySeasonDriverIds:
           (json[SeasonGrandPrixBetFields.qualiStandingsBySeasonDriverIds]
                   as List)
-              .cast<String>(),
+              .cast<String?>(),
       p1SeasonDriverId: json[SeasonGrandPrixBetFields.p1SeasonDriverId],
       p2SeasonDriverId: json[SeasonGrandPrixBetFields.p2SeasonDriverId],
       p3SeasonDriverId: json[SeasonGrandPrixBetFields.p3SeasonDriverId],
