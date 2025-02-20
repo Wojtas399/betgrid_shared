@@ -51,9 +51,9 @@ class FirebaseUserService {
     final docRef = _firebaseCollectionReferences.users().doc(userId);
     await docRef.update({
       if (username != null) UserFields.username: username,
-      if (themeMode != null) UserFields.themeMode: themeMode,
+      if (themeMode != null) UserFields.themeMode: themeMode.name,
       if (themePrimaryColor != null)
-        UserFields.themePrimaryColor: themePrimaryColor,
+        UserFields.themePrimaryColor: themePrimaryColor.name,
     });
     final snapshot = await docRef.get();
     return snapshot.data();
