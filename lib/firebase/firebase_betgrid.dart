@@ -8,8 +8,8 @@ class FirebaseBetgrid {
   const FirebaseBetgrid();
 
   static Future<void> initialize({
-    required String name,
     required FirebaseOptions options,
+    String? name,
   }) async {
     await Firebase.initializeApp(
       name: name,
