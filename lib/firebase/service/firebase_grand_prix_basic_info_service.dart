@@ -4,13 +4,13 @@ import '../model/grand_prix_basic_info_dto.dart';
 class FirebaseGrandPrixBasicInfoService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<Iterable<GrandPrixBasicInfoDto>> fetchAllGrandPrixesBasicInfo() async {
+  Future<Iterable<GrandPrixBasicInfoDto>> fetchAll() async {
     final snapshot =
         await _firebaseCollectionsReferences.grandPrixesBasicInfo().get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<GrandPrixBasicInfoDto?> fetchGrandPrixBasicInfoById(String id) async {
+  Future<GrandPrixBasicInfoDto?> fetchById(String id) async {
     final snapshot = await _firebaseCollectionsReferences
         .grandPrixesBasicInfo()
         .doc(id)
@@ -18,7 +18,7 @@ class FirebaseGrandPrixBasicInfoService {
     return snapshot.data();
   }
 
-  Future<GrandPrixBasicInfoDto?> addGrandPrixBasicInfo({
+  Future<GrandPrixBasicInfoDto?> add({
     required String name,
     required String countryAlpha2Code,
   }) async {
@@ -32,12 +32,10 @@ class FirebaseGrandPrixBasicInfoService {
     return snapshot.data();
   }
 
-  Future<void> deleteGrandPrixBasicInfo({
-    required String grandPrixBasicInfoId,
-  }) async {
+  Future<void> deleteById(String id) async {
     await _firebaseCollectionsReferences
         .grandPrixesBasicInfo()
-        .doc(grandPrixBasicInfoId)
+        .doc(id)
         .delete();
   }
 }
