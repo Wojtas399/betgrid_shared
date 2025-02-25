@@ -10,7 +10,7 @@ class FirebaseSeasonTeamService {
     return snapshot.docs.map((doc) => doc.data());
   }
 
-  Future<SeasonTeamDto?> addSeasonTeam({
+  Future<SeasonTeamDto?> add({
     required int season,
     required String teamId,
   }) async {
@@ -24,7 +24,7 @@ class FirebaseSeasonTeamService {
     return snapshot.data();
   }
 
-  Future<void> deleteSeasonTeam({
+  Future<void> delete({
     required int season,
     required String seasonTeamId,
   }) async {
