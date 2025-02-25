@@ -4,13 +4,13 @@ import '../model/driver_personal_data_dto.dart';
 class FirebaseDriverPersonalDataService {
   final _firebaseCollectionsReferences = FirebaseCollectionsReferences();
 
-  Future<List<DriverPersonalDataDto>> fetchAllDriversPersonalData() async {
+  Future<List<DriverPersonalDataDto>> fetchAll() async {
     final snapshot =
         await _firebaseCollectionsReferences.driversPersonalData().get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<DriverPersonalDataDto?> fetchDriverPersonalDataById(String id) async {
+  Future<DriverPersonalDataDto?> fetchById(String id) async {
     final snapshot = await _firebaseCollectionsReferences
         .driversPersonalData()
         .doc(id)
@@ -18,7 +18,7 @@ class FirebaseDriverPersonalDataService {
     return snapshot.data();
   }
 
-  Future<DriverPersonalDataDto?> addDriverPersonalData({
+  Future<DriverPersonalDataDto?> add({
     required String name,
     required String surname,
   }) async {
@@ -29,7 +29,7 @@ class FirebaseDriverPersonalDataService {
     return snapshot.data();
   }
 
-  Future<void> deleteDriverPersonalData(String id) async {
+  Future<void> deleteById(String id) async {
     await _firebaseCollectionsReferences.driversPersonalData().doc(id).delete();
   }
 }
