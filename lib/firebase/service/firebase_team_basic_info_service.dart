@@ -30,7 +30,7 @@ class FirebaseTeamBasicInfoService {
     return snapshot.data();
   }
 
-  Future<void> delete(String id) async {
+  Future<void> deleteById(String id) async {
     await _firebaseCollectionsReferences.teamsBasicInfo().doc(id).delete();
   }
 }
