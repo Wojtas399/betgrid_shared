@@ -4,7 +4,7 @@ import '../model/season_grand_prix_results_dto.dart';
 class FirebaseSeasonGrandPrixResultsService {
   final _firebaseCollectionReferences = FirebaseCollectionsReferences();
 
-  Future<SeasonGrandPrixResultsDto?> fetchBySeasonGrandPrix({
+  Future<SeasonGrandPrixResultsDto?> fetchBySeasonGrandPrixId({
     required int season,
     required String seasonGrandPrixId,
   }) async {
