@@ -13,7 +13,7 @@ class SeasonGrandPrixResultsDto {
   final bool? wasThereRedFlag;
 
   const SeasonGrandPrixResultsDto({
-    required this.id,
+    this.id = '',
     required this.season,
     required this.seasonGrandPrixId,
     this.qualiStandingsBySeasonDriverIds,
