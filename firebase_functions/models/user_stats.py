@@ -1,0 +1,49 @@
+from typing import List
+from pydantic import BaseModel
+from .user_stats_points_for_season_gp import UserStatsPointsForSeasonGp
+from .user_stats_points_for_driver import UserStatsPointsForDriver
+
+
+class UserStats(BaseModel):
+    best_gp_points: UserStatsPointsForSeasonGp
+    best_quali_points: UserStatsPointsForSeasonGp
+    best_race_points: UserStatsPointsForSeasonGp
+    points_for_drivers: List[UserStatsPointsForDriver]
+    total_points: float
+
+    @staticmethod
+    def from_dict(source):
+        return UserStats(
+            best_gp_points=UserStatsPointsForSeasonGp.from_dict(
+                source[UserStatsFields.BEST_GP_POINTS]
+            ),
+            best_quali_points=UserStatsPointsForSeasonGp.from_dict(
+                source[UserStatsFields.BEST_QUALI_POINTS]
+            ),
+            best_race_points=UserStatsPointsForSeasonGp.from_dict(
+                source[UserStatsFields.BEST_RACE_POINTS]
+            ),
+            points_for_drivers=[
+                UserStatsPointsForDriver.from_dict(driver)
+                for driver in source[UserStatsFields.POINTS_FOR_DRIVERS]
+            ],
+            total_points=source[UserStatsFields.TOTAL_POINTS],
+        )
+
+    def to_dict(self):
+        return {
+            UserStatsFields.BEST_GP_POINTS: self.best_gp_points.to_dict(),
+            UserStatsFields.BEST_QUALI_POINTS: self.best_quali_points.to_dict(),
+            UserStatsFields.BEST_RACE_POINTS: self.best_race_points.to_dict(),
+            UserStatsFields.POINTS_FOR_DRIVERS: [
+                driver.to_dict() for driver in self.points_for_drivers
+            ],
+        }
+
+
+class UserStatsFields:
+    BEST_GP_POINTS = 'bestGpPoints'
+    BEST_QUALI_POINTS = 'bestQualiPoints'
+    BEST_RACE_POINTS = 'bestRacePoints'
+    POINTS_FOR_DRIVERS = 'pointsForDrivers'
+    TOTAL_POINTS = 'totalPoints'
