@@ -1,12 +1,12 @@
 from firebase_admin import initialize_app, credentials
+from firebase_collections import FirebaseCollections
+from triggers import GrandPrixResultsTriggers
 from firebase_functions.firestore_fn import (
     on_document_created,
     on_document_updated,
     Event,
     DocumentSnapshot
 )
-from firebase_collections import FirebaseCollections
-from triggers import GrandPrixResultsTriggers
 
 cred = credentials.Certificate("./serviceAccountKey.json")
 app = initialize_app()
@@ -15,10 +15,15 @@ grand_prix_results_triggers = GrandPrixResultsTriggers()
 
 @on_document_created(
     document=(
-        FirebaseCollections.GRAND_PRIX_RESULTS + "/{season}/Results/{pushId}"
+        (
+            FirebaseCollections.SEASON.MAIN +
+            "/{season}/" +
+            FirebaseCollections.SEASON.GRAND_PRIXES_RESULTS +
+            "/{pushId}"
+        )
     )
 )
-def onresultsadded(
+def on_grand_prix_results_added(
     event: Event[DocumentSnapshot | None]
 ) -> None:
     if event.data is not None:
@@ -30,14 +35,19 @@ def onresultsadded(
 
 @on_document_updated(
     document=(
-        FirebaseCollections.GRAND_PRIX_RESULTS + "/{season}/Results/{docId}"
+        (
+            FirebaseCollections.SEASON.MAIN +
+            "/{season}/" +
+            FirebaseCollections.SEASON.GRAND_PRIXES_RESULTS +
+            "/{docId}"
+        )
     )
 )
-def onresultsupdated(
+def on_grand_prix_results_updated(
     event: Event[DocumentSnapshot | None]
 ) -> None:
     if event.data is not None:
         grand_prix_results_triggers.on_results_updated(
-            json_data=event.data.to_dict(),
+            json_data=event.data.after.to_dict(),
             season=event.params["season"]
         )

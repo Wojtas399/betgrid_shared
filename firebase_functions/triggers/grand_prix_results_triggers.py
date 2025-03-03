@@ -1,11 +1,11 @@
 from models import (
-    GrandPrixResults,
-    GrandPrixBets,
-    GrandPrixBetPoints,
+    SeasonGrandPrixResults,
+    SeasonGrandPrixBet,
+    SeasonGrandPrixBetPoints,
 )
 from service.data import (
-    GrandPrixBetPointsDataService,
-    GrandPrixBetsDataService,
+    SeasonGrandPrixBetPointsDataService,
+    SeasonGrandPrixBetDataService,
     UsersDataService,
 )
 from service.points import GpPointsService
@@ -14,35 +14,38 @@ from service.points import GpPointsService
 class GrandPrixResultsTriggers:
     def __init__(self):
         self.users_data_service = UsersDataService()
-        self.grand_prix_bets_data_service = GrandPrixBetsDataService()
-        self.grand_prix_bet_points_data_service = GrandPrixBetPointsDataService()
+        self.season_grand_prix_bet_data_service = SeasonGrandPrixBetDataService()
+        self.season_grand_prix_bet_points_data_service = (
+            SeasonGrandPrixBetPointsDataService()
+        )
 
     def on_results_added(
         self,
         json_data: dict,
         season: int,
     ):
-
-        gp_results: GrandPrixResults = GrandPrixResults.from_dict(json_data)
-
+        gp_results = SeasonGrandPrixResults.from_dict(json_data)
         all_users_ids = self.users_data_service.load_ids_of_all_users()
+
         for user_id in all_users_ids:
-            gp_bets: GrandPrixBets = (
+            gp_bet: SeasonGrandPrixBet = (
                 self
-                .grand_prix_bets_data_service
-                .load_bets_for_user_and_grand_prix(
+                .season_grand_prix_bet_data_service
+                .load_for_user_and_season_grand_prix(
                     user_id=user_id,
-                    grand_prix_id=gp_results.season_grand_prix_id
+                    season=season,
+                    season_grand_prix_id=gp_results.season_grand_prix_id
                 )
             )
-            gp_points: GrandPrixBetPoints = GpPointsService(
-                gp_bets=gp_bets,
+            gp_points: SeasonGrandPrixBetPoints = GpPointsService(
+                gp_bet=gp_bet,
                 gp_results=gp_results,
             ).calculate_points()
 
-            self.grand_prix_bet_points_data_service.add_grand_prix_bet_points(
+            self.season_grand_prix_bet_points_data_service.add(
                 user_id=user_id,
-                grand_prix_bet_points=gp_points,
+                season=season,
+                season_grand_prix_bet_points=gp_points,
             )
 
     def on_results_updated(
@@ -50,28 +53,37 @@ class GrandPrixResultsTriggers:
         json_data: dict,
         season: int,
     ):
-        gp_results: GrandPrixResults = GrandPrixResults.from_dict(json_data)
-
+        gp_results = SeasonGrandPrixResults.from_dict(json_data)
         all_users_ids = self.users_data_service.load_ids_of_all_users()
+
         for user_id in all_users_ids:
-            gp_bets: GrandPrixBets = (
+            gp_bet: SeasonGrandPrixBet = (
                 self
-                .grand_prix_bets_data_service
-                .load_bets_for_user_and_grand_prix(
+                .season_grand_prix_bet_data_service
+                .load_for_user_and_season_grand_prix(
                     user_id=user_id,
-                    grand_prix_id=gp_results.season_grand_prix_id
+                    season=season,
+                    season_grand_prix_id=gp_results.season_grand_prix_id
                 )
             )
-            gp_points: GrandPrixBetPoints = GpPointsService(
-                gp_bets=gp_bets,
+            gp_points: SeasonGrandPrixBetPoints = GpPointsService(
+                gp_bet=gp_bet,
                 gp_results=gp_results,
             ).calculate_points()
 
-            (
-                self
-                .grand_prix_bet_points_data_service
-                .update_grand_prix_bet_points(
+            if self.season_grand_prix_bet_points_data_service.does_points_for_season_gp_exists(
+                user_id=user_id,
+                season=season,
+                season_grand_prix_id=gp_results.season_grand_prix_id
+            ):
+                self.season_grand_prix_bet_points_data_service.update(
                     user_id=user_id,
-                    updated_grand_prix_bet_points=gp_points,
+                    season=season,
+                    updated_season_grand_prix_bet_points=gp_points,
                 )
-            )
+            else:
+                self.season_grand_prix_bet_points_data_service.add(
+                    user_id=user_id,
+                    season=season,
+                    season_grand_prix_bet_points=gp_points,
+                )

@@ -4,24 +4,31 @@ from .quali_bet_points import QualiBetPoints
 from .race_bet_points import RaceBetPoints
 
 
-class GrandPrixBetPoints(BaseModel):
+class SeasonGrandPrixBetPoints(BaseModel):
     season_grand_prix_id: str
+    total_points: float
     quali_bet_points: Optional[QualiBetPoints]
     race_bet_points: Optional[RaceBetPoints]
-    total_points: float
 
     def to_dict(self):
         return {
-            'seasonGrandPrixId': self.season_grand_prix_id,
-            'qualiBetPoints': (
+            SeasonGrandPrixBetPointsFields.season_grand_prix_id: self.season_grand_prix_id,
+            SeasonGrandPrixBetPointsFields.total_points: self.total_points,
+            SeasonGrandPrixBetPointsFields.quali_bet_points: (
                 self.quali_bet_points.to_dict()
                 if self.quali_bet_points is not None
                 else None
             ),
-            'raceBetPoints': (
+            SeasonGrandPrixBetPointsFields.race_bet_points: (
                 self.race_bet_points.to_dict()
                 if self.race_bet_points is not None
                 else None
             ),
-            'totalPoints': self.total_points,
         }
+
+
+class SeasonGrandPrixBetPointsFields:
+    season_grand_prix_id = 'seasonGrandPrixId'
+    total_points = 'totalPoints'
+    quali_bet_points = 'qualiBetPoints'
+    race_bet_points = 'raceBetPoints'

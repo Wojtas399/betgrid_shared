@@ -4,12 +4,12 @@ from models.race_bet_points import RaceBetPoints
 
 
 class RaceParams(BaseModel):
-    p1_driver_id: str | None
-    p2_driver_id: str | None
-    p3_driver_id: str | None
-    p10_driver_id: str | None
-    fastest_lap_driver_id: str | None
-    dnf_driver_ids: List[str | None] | None
+    p1_season_driver_id: str | None
+    p2_season_driver_id: str | None
+    p3_season_driver_id: str | None
+    p10_season_driver_id: str | None
+    fastest_lap_season_driver_id: str | None
+    dnf_season_driver_ids: List[str] | None
     is_safety_car: bool | None
     is_red_flag: bool | None
 
@@ -28,7 +28,7 @@ class RacePointsService:
 
     def __init__(
         self,
-        race_bets: RaceParams,
+        race_bets: RaceParams | None,
         race_results: RaceParams,
     ):
         self.race_bets = race_bets
@@ -37,6 +37,26 @@ class RacePointsService:
     def calculate_points(self) -> RaceBetPoints | None:
         if self.__is_at_least_one_result_param_none:
             return None
+
+        if self.race_bets is None:
+            return RaceBetPoints(
+                p1_points=0.0,
+                p2_points=0.0,
+                p3_points=0.0,
+                p10_points=0.0,
+                fastest_lap_points=0.0,
+                dnf_driver1_points=0.0,
+                dnf_driver2_points=0.0,
+                dnf_driver3_points=0.0,
+                safety_car_points=0.0,
+                red_flag_points=0.0,
+                podium_and_p10_points=0.0,
+                podium_and_p10_multiplier=None,
+                dnf_points=0.0,
+                dnf_multiplier=None,
+                safety_car_and_red_flag_points=0.0,
+                total_points=0.0,
+            )
 
         p1_points: float = self.__points_for_p1
         p2_points: float = self.__points_for_p2
@@ -98,83 +118,83 @@ class RacePointsService:
     @property
     def __is_at_least_one_result_param_none(self) -> bool:
         return (
-            self.race_results.p1_driver_id is None or
-            self.race_results.p2_driver_id is None or
-            self.race_results.p3_driver_id is None or
-            self.race_results.p10_driver_id is None or
-            self.race_results.fastest_lap_driver_id is None or
-            self.race_results.dnf_driver_ids is None or
+            self.race_results.p1_season_driver_id is None or
+            self.race_results.p2_season_driver_id is None or
+            self.race_results.p3_season_driver_id is None or
+            self.race_results.p10_season_driver_id is None or
+            self.race_results.fastest_lap_season_driver_id is None or
+            self.race_results.dnf_season_driver_ids is None or
             self.race_results.is_safety_car is None or
             self.race_results.is_red_flag is None
         )
 
     @property
     def __points_for_p1(self) -> float:
-        results_p1_driver_id = self.race_results.p1_driver_id
+        results_p1_season_driver_id = self.race_results.p1_season_driver_id
 
         return self.__P1_POINTS if (
             (
-                results_p1_driver_id is not None and
-                self.race_bets.p1_driver_id == results_p1_driver_id
+                results_p1_season_driver_id is not None and
+                self.race_bets.p1_season_driver_id == results_p1_season_driver_id
             )
-        ) else 0
+        ) else 0.0
 
     @property
     def __points_for_p2(self) -> float:
-        results_p2_driver_id = self.race_results.p2_driver_id
+        results_p2_season_driver_id = self.race_results.p2_season_driver_id
 
         return self.__P2_POINTS if (
             (
-                results_p2_driver_id is not None and
-                self.race_bets.p2_driver_id == results_p2_driver_id
+                results_p2_season_driver_id is not None and
+                self.race_bets.p2_season_driver_id == results_p2_season_driver_id
             )
         ) else 0
 
     @property
     def __points_for_p3(self) -> float:
-        results_p3_driver_id = self.race_results.p3_driver_id
+        results_p3_season_driver_id = self.race_results.p3_season_driver_id
 
         return self.__P3_POINTS if (
             (
-                results_p3_driver_id is not None and
-                self.race_bets.p3_driver_id == results_p3_driver_id
+                results_p3_season_driver_id is not None and
+                self.race_bets.p3_season_driver_id == results_p3_season_driver_id
             )
         ) else 0
 
     @property
     def __points_for_p10(self) -> float:
-        results_p10_driver_id = self.race_results.p10_driver_id
+        results_p10_season_driver_id = self.race_results.p10_season_driver_id
 
         return self.__P10_POINTS if (
             (
-                results_p10_driver_id is not None and
-                self.race_bets.p10_driver_id == results_p10_driver_id
+                results_p10_season_driver_id is not None and
+                self.race_bets.p10_season_driver_id == results_p10_season_driver_id
             )
         ) else 0
 
     @property
     def __points_for_fastest_lap(self) -> float:
-        results_fastest_lap_driver_id = self.race_results.fastest_lap_driver_id
+        results_fastest_lap_season_driver_id = self.race_results.fastest_lap_season_driver_id
 
         return self.__FASTEST_LAP_POINTS if (
             (
-                results_fastest_lap_driver_id is not None and
-                self.race_bets.fastest_lap_driver_id == results_fastest_lap_driver_id
+                results_fastest_lap_season_driver_id is not None and
+                self.race_bets.fastest_lap_season_driver_id == results_fastest_lap_season_driver_id
             )
         ) else 0
 
     @property
     def __points_for_each_dnf(self) -> List[float]:
-        bets_dnf_driver_ids = self.race_bets.dnf_driver_ids
-        results_dnf_driver_ids = self.race_results.dnf_driver_ids
+        bets_dnf_season_driver_ids = self.race_bets.dnf_season_driver_ids
+        results_dnf_season_driver_ids = self.race_results.dnf_season_driver_ids
         dnf_points = [0, 0, 0]
 
         if (
-            bets_dnf_driver_ids is not None and
-            results_dnf_driver_ids is not None
+            bets_dnf_season_driver_ids is not None and
+            results_dnf_season_driver_ids is not None
         ):
-            for i in range(min(3, len(bets_dnf_driver_ids))):
-                if bets_dnf_driver_ids[i] in results_dnf_driver_ids:
+            for i in range(min(3, len(bets_dnf_season_driver_ids))):
+                if bets_dnf_season_driver_ids[i] in results_dnf_season_driver_ids:
                     dnf_points[i] = self.__ONE_DNF_POINTS
 
         return dnf_points

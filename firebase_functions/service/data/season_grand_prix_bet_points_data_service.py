@@ -1,0 +1,81 @@
+from google.cloud.firestore_v1.base_query import FieldFilter
+from firebase_collections_references import (
+    FirebaseCollectionsReferences
+)
+from models.season_grand_prix_bet_points import (
+    SeasonGrandPrixBetPoints,
+    SeasonGrandPrixBetPointsFields,
+)
+
+
+class SeasonGrandPrixBetPointsDataService:
+    def __init__(self):
+        self.collections_references = FirebaseCollectionsReferences()
+
+    def does_points_for_season_gp_exists(
+        self,
+        user_id: str,
+        season: int,
+        season_grand_prix_id: str,
+    ) -> bool:
+        docs = (
+            self.collections_references.user_season_grand_prix_bet_points(
+                user_id,
+                season
+            )
+            .where(
+                filter=FieldFilter(
+                    SeasonGrandPrixBetPointsFields.season_grand_prix_id,
+                    "==",
+                    season_grand_prix_id
+                )
+            )
+            .limit(1)
+            .stream()
+        )
+
+        return len(list(docs)) > 0
+
+    def add(
+        self,
+        user_id: str,
+        season: int,
+        season_grand_prix_bet_points: SeasonGrandPrixBetPoints,
+    ):
+        (
+            self.collections_references
+            .user_season_grand_prix_bet_points(user_id, season)
+            .add(season_grand_prix_bet_points.to_dict())
+        )
+
+    def update(
+        self,
+        user_id: str,
+        season: int,
+        updated_season_grand_prix_bet_points: SeasonGrandPrixBetPoints,
+    ):
+        points_doc_query = (
+            self.collections_references.user_season_grand_prix_bet_points(
+                user_id,
+                season
+            )
+            .where(
+                filter=FieldFilter(
+                    SeasonGrandPrixBetPointsFields.season_grand_prix_id,
+                    "==",
+                    updated_season_grand_prix_bet_points.season_grand_prix_id
+                )
+            )
+            .limit(1)
+        )
+
+        points_doc = points_doc_query.stream()[0]
+
+        (
+            self.collections_references.user_season_grand_prix_bet_points(
+                user_id,
+                season
+            )
+            .document(points_doc.id)
+            .set(updated_season_grand_prix_bet_points.to_dict())
+        )
