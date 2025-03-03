@@ -40,22 +40,22 @@ class RacePointsService:
 
         if self.race_bets is None:
             return RaceBetPoints(
-                p1_points=0.0,
-                p2_points=0.0,
-                p3_points=0.0,
-                p10_points=0.0,
-                fastest_lap_points=0.0,
-                dnf_driver1_points=0.0,
-                dnf_driver2_points=0.0,
-                dnf_driver3_points=0.0,
-                safety_car_points=0.0,
-                red_flag_points=0.0,
-                podium_and_p10_points=0.0,
+                p1=0.0,
+                p2=0.0,
+                p3=0.0,
+                p10=0.0,
+                fastest_lap=0.0,
+                dnf_driver1=0.0,
+                dnf_driver2=0.0,
+                dnf_driver3=0.0,
+                safety_car=0.0,
+                red_flag=0.0,
+                podium_and_p10=0.0,
                 podium_and_p10_multiplier=None,
-                dnf_points=0.0,
+                dnf=0.0,
                 dnf_multiplier=None,
-                safety_car_and_red_flag_points=0.0,
-                total_points=0.0,
+                safety_car_and_red_flag=0.0,
+                total=0.0,
             )
 
         p1_points: float = self.__points_for_p1
@@ -97,22 +97,22 @@ class RacePointsService:
         )
 
         return RaceBetPoints(
-            p1_points=p1_points,
-            p2_points=p2_points,
-            p3_points=p3_points,
-            p10_points=p10_points,
-            fastest_lap_points=fastest_lap_points,
-            dnf_driver1_points=points_for_each_dnf[0],
-            dnf_driver2_points=points_for_each_dnf[1],
-            dnf_driver3_points=points_for_each_dnf[2],
-            safety_car_points=safety_car_points,
-            red_flag_points=red_flag_points,
-            podium_and_p10_points=podium_p10_points,
+            p1=p1_points,
+            p2=p2_points,
+            p3=p3_points,
+            p10=p10_points,
+            fastest_lap=fastest_lap_points,
+            dnf_driver1=points_for_each_dnf[0],
+            dnf_driver2=points_for_each_dnf[1],
+            dnf_driver3=points_for_each_dnf[2],
+            safety_car=safety_car_points,
+            red_flag=red_flag_points,
+            podium_and_p10=podium_p10_points,
             podium_and_p10_multiplier=podium_p10_multiplier,
-            dnf_points=dnf_points,
+            dnf=dnf_points,
             dnf_multiplier=dnf_multiplier,
-            safety_car_and_red_flag_points=safety_car_red_flag_points,
-            total_points=total_points,
+            safety_car_and_red_flag=safety_car_red_flag_points,
+            total=total_points,
         )
 
     @property

@@ -61,17 +61,17 @@ class GpPointsService:
         quali_total_points: float = (
             0
             if quali_points is None
-            else quali_points.total_points
+            else quali_points.total
         )
         race_total_points: float = (
             0
             if race_points is None
-            else race_points.total_points
+            else race_points.total
         )
 
         return SeasonGrandPrixBetPoints(
             season_grand_prix_id=self.season_grand_prix_id,
-            quali_bet_points=quali_points,
-            race_bet_points=race_points,
-            total_points=quali_total_points + race_total_points,
+            quali=quali_points,
+            race=race_points,
+            total=quali_total_points + race_total_points,
         )

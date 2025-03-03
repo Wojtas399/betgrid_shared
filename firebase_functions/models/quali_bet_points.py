@@ -1,64 +1,64 @@
 from pydantic import BaseModel
-from typing import Optional
+
 
 class QualiBetPoints(BaseModel):
-    q3_p1_points: float
-    q3_p2_points: float
-    q3_p3_points: float
-    q3_p4_points: float
-    q3_p5_points: float
-    q3_p6_points: float
-    q3_p7_points: float
-    q3_p8_points: float
-    q3_p9_points: float
-    q3_p10_points: float
-    q2_p11_points: float
-    q2_p12_points: float
-    q2_p13_points: float
-    q2_p14_points: float
-    q2_p15_points: float
-    q1_p16_points: float
-    q1_p17_points: float
-    q1_p18_points: float
-    q1_p19_points: float
-    q1_p20_points: float
-    q3_points: float
-    q2_points: float
-    q1_points: float
-    q3_multiplier: Optional[float]
-    q2_multiplier: Optional[float]
-    q1_multiplier: Optional[float]
-    total_points: float
-    multiplier: Optional[float]
+    q3_p1: float
+    q3_p2: float
+    q3_p3: float
+    q3_p4: float
+    q3_p5: float
+    q3_p6: float
+    q3_p7: float
+    q3_p8: float
+    q3_p9: float
+    q3_p10: float
+    q2_p11: float
+    q2_p12: float
+    q2_p13: float
+    q2_p14: float
+    q2_p15: float
+    q1_p16: float
+    q1_p17: float
+    q1_p18: float
+    q1_p19: float
+    q1_p20: float
+    q3: float
+    q2: float
+    q1: float
+    q3_multiplier: float | None
+    q2_multiplier: float | None
+    q1_multiplier: float | None
+    total: float
+    multiplier: float | None
 
     def to_dict(self):
         return {
-            'q3P1Points': self.q3_p1_points,
-            'q3P2Points': self.q3_p2_points,
-            'q3P3Points': self.q3_p3_points,
-            'q3P4Points': self.q3_p4_points,
-            'q3P5Points': self.q3_p5_points,
-            'q3P6Points': self.q3_p6_points,
-            'q3P7Points': self.q3_p7_points,
-            'q3P8Points': self.q3_p8_points,
-            'q3P9Points': self.q3_p9_points,
-            'q3P10Points': self.q3_p10_points,
-            'q2P11Points': self.q2_p11_points,
-            'q2P12Points': self.q2_p12_points,
-            'q2P13Points': self.q2_p13_points,
-            'q2P14Points': self.q2_p14_points,
-            'q2P15Points': self.q2_p15_points,
-            'q1P16Points': self.q1_p16_points,
-            'q1P17Points': self.q1_p17_points,
-            'q1P18Points': self.q1_p18_points,
-            'q1P19Points': self.q1_p19_points,
-            'q1P20Points': self.q1_p20_points,
-            'q3Points': self.q3_points,
-            'q2Points': self.q2_points,
-            'q1Points': self.q1_points,
+            'q3P1': self.q3_p1,
+            'q3P2': self.q3_p2,
+            'q3P3': self.q3_p3,
+            'q3P4': self.q3_p4,
+            'q3P5': self.q3_p5,
+            'q3P6': self.q3_p6,
+            'q3P7': self.q3_p7,
+            'q3P8': self.q3_p8,
+            'q3P9': self.q3_p9,
+            'q3P10': self.q3_p10,
+            'q2P11': self.q2_p11,
+            'q2P12': self.q2_p12,
+            'q2P13': self.q2_p13,
+            'q2P14': self.q2_p14,
+            'q2P15': self.q2_p15,
+            'q1P16': self.q1_p16,
+            'q1P17': self.q1_p17,
+            'q1P18': self.q1_p18,
+            'q1P19': self.q1_p19,
+            'q1P20': self.q1_p20,
+            'q3': self.q3,
+            'q2': self.q2,
+            'q1': self.q1,
             'q3Multiplier': self.q3_multiplier,
             'q2Multiplier': self.q2_multiplier,
             'q1Multiplier': self.q1_multiplier,
-            'totalPoints': self.total_points,
+            'total': self.total,
             'multiplier': self.multiplier,
         }
