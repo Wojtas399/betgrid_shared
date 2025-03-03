@@ -33,7 +33,7 @@ class RaceBetPoints(BaseModel):
             'redFlag': self.red_flag,
             'podiumAndP10': self.podium_and_p10,
             'podiumAndP10Multiplier': self.podium_and_p10_multiplier,
-            'dnf': self.dnf,
+            'totalDnf': self.dnf,
             'dnfMultiplier': self.dnf_multiplier,
             'safetyCarAndRedFlag': self.safety_car_and_red_flag,
             'total': self.total,
