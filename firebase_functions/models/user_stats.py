@@ -5,10 +5,10 @@ from .user_stats_points_for_driver import UserStatsPointsForDriver
 
 
 class UserStats(BaseModel):
-    best_gp_points: UserStatsPointsForSeasonGp
-    best_quali_points: UserStatsPointsForSeasonGp
-    best_race_points: UserStatsPointsForSeasonGp
-    points_for_drivers: List[UserStatsPointsForDriver]
+    best_gp_points: UserStatsPointsForSeasonGp | None
+    best_quali_points: UserStatsPointsForSeasonGp | None
+    best_race_points: UserStatsPointsForSeasonGp | None
+    points_for_drivers: List[UserStatsPointsForDriver] | None
     total_points: float
 
     @staticmethod
@@ -16,17 +16,17 @@ class UserStats(BaseModel):
         return UserStats(
             best_gp_points=UserStatsPointsForSeasonGp.from_dict(
                 source[UserStatsFields.BEST_GP_POINTS]
-            ),
+            ) if source[UserStatsFields.BEST_GP_POINTS] is not None else None,
             best_quali_points=UserStatsPointsForSeasonGp.from_dict(
                 source[UserStatsFields.BEST_QUALI_POINTS]
-            ),
+            ) if source[UserStatsFields.BEST_QUALI_POINTS] is not None else None,
             best_race_points=UserStatsPointsForSeasonGp.from_dict(
                 source[UserStatsFields.BEST_RACE_POINTS]
-            ),
+            ) if source[UserStatsFields.BEST_RACE_POINTS] is not None else None,
             points_for_drivers=[
                 UserStatsPointsForDriver.from_dict(driver)
                 for driver in source[UserStatsFields.POINTS_FOR_DRIVERS]
-            ],
+            ] if source[UserStatsFields.POINTS_FOR_DRIVERS] is not None else None,
             total_points=source[UserStatsFields.TOTAL_POINTS],
         )
 
@@ -38,6 +38,7 @@ class UserStats(BaseModel):
             UserStatsFields.POINTS_FOR_DRIVERS: [
                 driver.to_dict() for driver in self.points_for_drivers
             ],
+            UserStatsFields.TOTAL_POINTS: self.total_points,
         }
 
 

@@ -17,3 +17,6 @@ firebase.json
 storage.rules
 firestore-debug.log
 firebase-debug.log
+
+# Pylint related
+.pylintrc

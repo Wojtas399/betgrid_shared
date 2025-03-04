@@ -54,7 +54,7 @@ class SeasonGrandPrixBetPointsDataService:
         season: int,
         updated_season_grand_prix_bet_points: SeasonGrandPrixBetPoints,
     ):
-        points_doc_query = (
+        docs = (
             self.collections_references.user_season_grand_prix_bet_points(
                 user_id,
                 season
@@ -67,15 +67,15 @@ class SeasonGrandPrixBetPointsDataService:
                 )
             )
             .limit(1)
+            .stream()
         )
 
-        points_doc = points_doc_query.stream()[0]
-
-        (
-            self.collections_references.user_season_grand_prix_bet_points(
-                user_id,
-                season
+        for doc in docs:
+            (
+                self.collections_references.user_season_grand_prix_bet_points(
+                    user_id,
+                    season
+                )
+                .document(doc.id)
+                .set(updated_season_grand_prix_bet_points.to_dict())
             )
-            .document(points_doc.id)
-            .set(updated_season_grand_prix_bet_points.to_dict())
-        )

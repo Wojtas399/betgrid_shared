@@ -1,6 +1,4 @@
-from firebase_collections_references import (
-    FirebaseCollectionsReferences
-)
+from firebase_collections_references import FirebaseCollectionsReferences
 from models.user_stats import UserStats
 
 
@@ -13,18 +11,14 @@ class UserStatsDataService:
         user_id: str,
         season: int,
     ) -> UserStats | None:
-        docs = (
+        doc = (
             self
             .collections_references
             .user_season(user_id, season)
-            .limit(1)
-            .stream()
+            .get()
         )
 
-        for doc in docs:
-            return UserStats.from_dict(doc.to_dict())
-
-        return None
+        return UserStats.from_dict(doc.to_dict()) if doc.exists else None
 
     def update_for_user_and_season(
         self,
