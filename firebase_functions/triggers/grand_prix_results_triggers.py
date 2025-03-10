@@ -1,3 +1,4 @@
+from google.cloud.firestore import Client
 from models import (
     SeasonGrandPrixResults,
     SeasonGrandPrixBet,
@@ -13,13 +14,15 @@ from service.stats import UserStatsService
 
 
 class GrandPrixResultsTriggers:
-    def __init__(self):
-        self.users_data_service = UsersDataService()
-        self.season_grand_prix_bet_data_service = SeasonGrandPrixBetDataService()
-        self.season_grand_prix_bet_points_data_service = (
-            SeasonGrandPrixBetPointsDataService()
+    def __init__(self, db_client: Client):
+        self.users_data_service = UsersDataService(db_client)
+        self.season_grand_prix_bet_data_service = SeasonGrandPrixBetDataService(
+            db_client
         )
-        self.user_stats_service = UserStatsService()
+        self.season_grand_prix_bet_points_data_service = (
+            SeasonGrandPrixBetPointsDataService(db_client)
+        )
+        self.user_stats_service = UserStatsService(db_client)
 
     def on_results_added(
         self,

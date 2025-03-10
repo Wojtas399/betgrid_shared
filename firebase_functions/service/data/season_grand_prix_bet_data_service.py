@@ -1,4 +1,5 @@
 from google.cloud.firestore_v1.base_query import FieldFilter
+from google.cloud.firestore import Client
 from firebase_collections_references import (
     FirebaseCollectionsReferences
 )
@@ -9,8 +10,8 @@ from models.season_grand_prix_bet import (
 
 
 class SeasonGrandPrixBetDataService:
-    def __init__(self):
-        self.collections_references = FirebaseCollectionsReferences()
+    def __init__(self, db_client: Client):
+        self.collections_references = FirebaseCollectionsReferences(db_client)
 
     def load_for_user_and_season_grand_prix(
         self,

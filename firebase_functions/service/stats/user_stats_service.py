@@ -1,3 +1,4 @@
+from google.cloud.firestore import Client
 from typing import List
 from models import (
     SeasonGrandPrixBet,
@@ -14,9 +15,9 @@ from service.data import (
 
 
 class UserStatsService:
-    def __init__(self):
-        self.user_stats_data_service = UserStatsDataService()
-        self.season_driver_data_service = SeasonDriverDataService()
+    def __init__(self, db_client: Client):
+        self.user_stats_data_service = UserStatsDataService(db_client)
+        self.season_driver_data_service = SeasonDriverDataService(db_client)
 
     def update_user_stats(
         self,

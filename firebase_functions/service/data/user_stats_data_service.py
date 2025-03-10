@@ -1,10 +1,11 @@
+from google.cloud.firestore import Client
 from firebase_collections_references import FirebaseCollectionsReferences
 from models.user_stats import UserStats
 
 
 class UserStatsDataService:
-    def __init__(self):
-        self.collections_references = FirebaseCollectionsReferences()
+    def __init__(self, db_client: Client):
+        self.collections_references = FirebaseCollectionsReferences(db_client)
 
     def load_for_user_and_season(
         self,

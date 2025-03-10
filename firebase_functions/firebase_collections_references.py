@@ -1,10 +1,10 @@
-from firebase_admin import firestore
+from google.cloud.firestore import Client
 from firebase_collections import FirebaseCollections
 
 
 class FirebaseCollectionsReferences:
-    def __init__(self):
-        self.db = firestore.client()
+    def __init__(self, db_client: Client):
+        self.db = db_client
 
     def users(self):
         return self.db.collection(FirebaseCollections.USERS.MAIN)

@@ -1,3 +1,4 @@
+from firebase_admin import firestore
 from firebase_admin import initialize_app, credentials
 from firebase_collections import FirebaseCollections
 from triggers import GrandPrixResultsTriggers
@@ -10,7 +11,6 @@ from firebase_functions.firestore_fn import (
 
 cred = credentials.Certificate("./serviceAccountKey.json")
 app = initialize_app()
-grand_prix_results_triggers = GrandPrixResultsTriggers()
 
 
 @on_document_created(
@@ -26,6 +26,8 @@ grand_prix_results_triggers = GrandPrixResultsTriggers()
 def on_grand_prix_results_added(
     event: Event[DocumentSnapshot | None]
 ) -> None:
+    db_client = firestore.client()
+    grand_prix_results_triggers = GrandPrixResultsTriggers(db_client)
     if event.data is not None:
         grand_prix_results_triggers.on_results_added(
             json_data=event.data.to_dict(),
@@ -46,6 +48,8 @@ def on_grand_prix_results_added(
 def on_grand_prix_results_updated(
     event: Event[DocumentSnapshot | None]
 ) -> None:
+    db_client = firestore.client()
+    grand_prix_results_triggers = GrandPrixResultsTriggers(db_client)
     if event.data is not None:
         grand_prix_results_triggers.on_results_updated(
             json_data=event.data.after.to_dict(),
