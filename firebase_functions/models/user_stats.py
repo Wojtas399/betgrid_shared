@@ -32,12 +32,24 @@ class UserStats(BaseModel):
 
     def to_dict(self):
         return {
-            UserStatsFields.BEST_GP_POINTS: self.best_gp_points.to_dict(),
-            UserStatsFields.BEST_QUALI_POINTS: self.best_quali_points.to_dict(),
-            UserStatsFields.BEST_RACE_POINTS: self.best_race_points.to_dict(),
+            UserStatsFields.BEST_GP_POINTS: (
+                self.best_gp_points.to_dict()
+                if self.best_gp_points is not None
+                else None
+            ),
+            UserStatsFields.BEST_QUALI_POINTS: (
+                self.best_quali_points.to_dict()
+                if self.best_quali_points is not None
+                else None
+            ),
+            UserStatsFields.BEST_RACE_POINTS: (
+                self.best_race_points.to_dict()
+                if self.best_race_points is not None
+                else None
+            ),
             UserStatsFields.POINTS_FOR_DRIVERS: [
                 driver.to_dict() for driver in self.points_for_drivers
-            ],
+            ] if self.points_for_drivers is not None else None,
             UserStatsFields.TOTAL_POINTS: self.total_points,
         }
 
