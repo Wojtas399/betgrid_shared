@@ -143,8 +143,9 @@ class UserStatsService:
             )
         )
 
-        if points_for_drivers is None:
-            return [
+        existing_points_for_drivers = points_for_drivers
+        if existing_points_for_drivers is None:
+            existing_points_for_drivers = [
                 UserStatsPointsForDriver(
                     season_driver_id=season_driver_id,
                     points=0.0,
@@ -157,7 +158,7 @@ class UserStatsService:
             existing_points: UserStatsPointsForDriver = next(
                 (
                     points_for_single_driver for
-                    points_for_single_driver in points_for_drivers if
+                    points_for_single_driver in existing_points_for_drivers if
                     points_for_single_driver.season_driver_id == season_driver_id
                 ),
             )
