@@ -187,12 +187,12 @@ class UserStatsService:
             season_driver_id=season_driver_id,
             quali_standings_by_season_driver_ids=season_gp_bet.quali_standings_by_season_driver_ids,
             season_gp_bet_points=season_gp_bet_points,
-        )
+        ) if season_gp_bet_points.quali is not None else 0.0
         points_for_race = self.__get_points_for_season_driver_for_race(
             season_driver_id=season_driver_id,
             season_gp_bet=season_gp_bet,
             race_points=season_gp_bet_points.race,
-        )
+        ) if season_gp_bet_points.race is not None else 0.0
         return points_for_quali + points_for_race
 
     def __get_points_for_season_driver_for_quali(
