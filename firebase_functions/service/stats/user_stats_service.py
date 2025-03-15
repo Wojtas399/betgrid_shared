@@ -36,15 +36,23 @@ class UserStatsService:
             best_gp_points=user_stats.best_gp_points,
             gp_points=season_gp_bet_points.total,
         )
-        updated_best_quali_points = self.__update_best_quali_points(
-            season_gp_id=season_gp_bet_points.season_grand_prix_id,
-            best_quali_points=user_stats.best_quali_points,
-            quali_points=season_gp_bet_points.quali.total,
+        updated_best_quali_points = (
+            self.__update_best_quali_points(
+                season_gp_id=season_gp_bet_points.season_grand_prix_id,
+                best_quali_points=user_stats.best_quali_points,
+                quali_points=season_gp_bet_points.quali.total,
+            )
+            if season_gp_bet_points.quali is not None
+            else user_stats.best_quali_points
         )
-        updated_best_race_points = self.__update_best_race_points(
-            season_gp_id=season_gp_bet_points.season_grand_prix_id,
-            best_race_points=user_stats.best_race_points,
-            race_points=season_gp_bet_points.race.total,
+        updated_best_race_points = (
+            self.__update_best_race_points(
+                season_gp_id=season_gp_bet_points.season_grand_prix_id,
+                best_race_points=user_stats.best_race_points,
+                race_points=season_gp_bet_points.race.total,
+            )
+            if season_gp_bet_points.race is not None
+            else user_stats.best_race_points
         )
         updated_points_for_drivers = self.__update_points_for_drivers(
             season=season,
