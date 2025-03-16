@@ -1,5 +1,5 @@
-from google.cloud.firestore import Client
 from typing import List
+from google.cloud.firestore import Client
 from models import (
     SeasonGrandPrixBet,
     SeasonGrandPrixBetPoints,
@@ -11,6 +11,8 @@ from models import (
 from service.data import (
     UserStatsDataService,
     SeasonDriverDataService,
+    SeasonGrandPrixBetPointsDataService,
+    SeasonGrandPrixBetDataService,
 )
 
 
@@ -18,124 +20,102 @@ class UserStatsService:
     def __init__(self, db_client: Client):
         self.user_stats_data_service = UserStatsDataService(db_client)
         self.season_driver_data_service = SeasonDriverDataService(db_client)
+        self.season_grand_prix_bet_points_data_service = (
+            SeasonGrandPrixBetPointsDataService(db_client)
+        )
+        self.season_grand_prix_bet_data_service = (
+            SeasonGrandPrixBetDataService(db_client)
+        )
 
-    def update_user_stats(
+    def calculate_stats_for_user_season(
         self,
         user_id: str,
         season: int,
-        season_gp_bet: SeasonGrandPrixBet,
-        season_gp_bet_points: SeasonGrandPrixBetPoints,
     ):
-        user_stats: UserStats = self.user_stats_data_service.load_for_user_and_season(
+        points_for_season_gp_bets: List[SeasonGrandPrixBetPoints] = (
+            self.season_grand_prix_bet_points_data_service.load_all_from_season(
+                user_id=user_id,
+                season=season,
+            )
+        )
+
+        if not points_for_season_gp_bets:
+            return
+
+        best_gp_points = self.__find_best_gp_points(
+            season_grand_prixes_bets_points=points_for_season_gp_bets,
+        )
+        best_quali_points = self.__find_best_quali_points(
+            season_grand_prixes_bets_points=points_for_season_gp_bets,
+        )
+        best_race_points = self.__find_best_race_points(
+            season_grand_prixes_bets_points=points_for_season_gp_bets,
+        )
+        points_for_drivers = self.__create_points_for_drivers(
             user_id=user_id,
             season=season,
+            season_grand_prixes_bets_points=points_for_season_gp_bets,
         )
-
-        updated_best_gp_points = self.__update_best_gp_points(
-            season_gp_id=season_gp_bet_points.season_grand_prix_id,
-            best_gp_points=user_stats.best_gp_points,
-            gp_points=season_gp_bet_points.total,
-        )
-        updated_best_quali_points = (
-            self.__update_best_quali_points(
-                season_gp_id=season_gp_bet_points.season_grand_prix_id,
-                best_quali_points=user_stats.best_quali_points,
-                quali_points=season_gp_bet_points.quali.total,
-            )
-            if season_gp_bet_points.quali is not None
-            else user_stats.best_quali_points
-        )
-        updated_best_race_points = (
-            self.__update_best_race_points(
-                season_gp_id=season_gp_bet_points.season_grand_prix_id,
-                best_race_points=user_stats.best_race_points,
-                race_points=season_gp_bet_points.race.total,
-            )
-            if season_gp_bet_points.race is not None
-            else user_stats.best_race_points
-        )
-        updated_points_for_drivers = self.__update_points_for_drivers(
-            season=season,
-            points_for_drivers=user_stats.points_for_drivers,
-            season_gp_bet=season_gp_bet,
-            season_gp_bet_points=season_gp_bet_points,
-        )
-        updated_total_points = user_stats.total_points + season_gp_bet_points.total
-
-        updated_user_stats = UserStats(
-            best_gp_points=updated_best_gp_points,
-            best_quali_points=updated_best_quali_points,
-            best_race_points=updated_best_race_points,
-            points_for_drivers=updated_points_for_drivers,
-            total_points=updated_total_points,
+        total_points = sum(
+            bet_points.total for bet_points in points_for_season_gp_bets
         )
 
         self.user_stats_data_service.update_for_user_and_season(
             user_id=user_id,
             season=season,
-            updated_user_stats=updated_user_stats,
+            updated_user_stats=UserStats(
+                best_gp_points=best_gp_points,
+                best_quali_points=best_quali_points,
+                best_race_points=best_race_points,
+                points_for_drivers=points_for_drivers,
+                total_points=total_points,
+            ),
         )
 
-    def __update_best_gp_points(
+    def __find_best_gp_points(
         self,
-        season_gp_id: str,
-        best_gp_points: UserStatsPointsForSeasonGp | None,
-        gp_points: float,
-    ):
-        return (
-            UserStatsPointsForSeasonGp(
-                season_grand_prix_id=season_gp_id,
-                points=gp_points,
-            )
-            if (
-                best_gp_points is None or
-                gp_points > best_gp_points.points
-            )
-            else best_gp_points
+        season_grand_prixes_bets_points: List[SeasonGrandPrixBetPoints]
+    ) -> UserStatsPointsForSeasonGp:
+        season_gp_bets_points_with_best_total = max(
+            season_grand_prixes_bets_points,
+            key=lambda x: x.total,
+        )
+        return UserStatsPointsForSeasonGp(
+            season_grand_prix_id=season_gp_bets_points_with_best_total.season_grand_prix_id,
+            points=season_gp_bets_points_with_best_total.total,
         )
 
-    def __update_best_quali_points(
+    def __find_best_quali_points(
         self,
-        season_gp_id: str,
-        best_quali_points: UserStatsPointsForSeasonGp | None,
-        quali_points: float,
-    ):
-        return (
-            UserStatsPointsForSeasonGp(
-                season_grand_prix_id=season_gp_id,
-                points=quali_points,
-            )
-            if (
-                best_quali_points is None or
-                quali_points > best_quali_points.points
-            )
-            else best_quali_points
+        season_grand_prixes_bets_points: List[SeasonGrandPrixBetPoints]
+    ) -> UserStatsPointsForSeasonGp | None:
+        season_gp_bets_points_with_best_quali = max(
+            season_grand_prixes_bets_points,
+            key=lambda x: x.quali.total if x.quali is not None else 0.0,
         )
+        return UserStatsPointsForSeasonGp(
+            season_grand_prix_id=season_gp_bets_points_with_best_quali.season_grand_prix_id,
+            points=season_gp_bets_points_with_best_quali.quali.total,
+        ) if season_gp_bets_points_with_best_quali.quali is not None else None
 
-    def __update_best_race_points(
+    def __find_best_race_points(
         self,
-        season_gp_id: str,
-        best_race_points: UserStatsPointsForSeasonGp | None,
-        race_points: float,
-    ):
-        return (
-            UserStatsPointsForSeasonGp(
-                season_grand_prix_id=season_gp_id,
-                points=race_points,
-            )
-            if (
-                best_race_points is None or
-                race_points > best_race_points.points
-            )
-            else best_race_points
+        season_grand_prixes_bets_points: List[SeasonGrandPrixBetPoints]
+    ) -> UserStatsPointsForSeasonGp | None:
+        season_gp_bets_points_with_best_race = max(
+            season_grand_prixes_bets_points,
+            key=lambda x: x.race.total if x.race is not None else 0.0,
         )
+        return UserStatsPointsForSeasonGp(
+            season_grand_prix_id=season_gp_bets_points_with_best_race.season_grand_prix_id,
+            points=season_gp_bets_points_with_best_race.race.total,
+        ) if season_gp_bets_points_with_best_race.race is not None else None
 
-    def __update_points_for_drivers(
+    def __create_points_for_drivers(
         self,
+        user_id: str,
         season: int,
-        points_for_drivers: List[UserStatsPointsForDriver] | None,
-        season_gp_bet: SeasonGrandPrixBet | None,
-        season_gp_bet_points: SeasonGrandPrixBetPoints,
+        season_grand_prixes_bets_points: List[SeasonGrandPrixBetPoints]
     ):
         all_season_drivers_ids = (
             self.season_driver_data_service.load_ids_of_all_drivers_from_season(
@@ -143,39 +123,34 @@ class UserStatsService:
             )
         )
 
-        existing_points_for_drivers = points_for_drivers
-        if existing_points_for_drivers is None:
-            existing_points_for_drivers = [
-                UserStatsPointsForDriver(
-                    season_driver_id=season_driver_id,
-                    points=0.0,
-                )
-                for season_driver_id in all_season_drivers_ids
-            ]
+        points_for_drivers = []
 
-        updated_points_for_drivers = []
         for season_driver_id in all_season_drivers_ids:
-            existing_points: UserStatsPointsForDriver = next(
-                (
-                    points_for_single_driver for
-                    points_for_single_driver in existing_points_for_drivers if
-                    points_for_single_driver.season_driver_id == season_driver_id
-                ),
-            )
-            new_points = self.__get_points_for_driver(
-                season_driver_id=season_driver_id,
-                season_gp_bet=season_gp_bet,
-                season_gp_bet_points=season_gp_bet_points,
-            ) if season_gp_bet is not None else 0.0
+            total_points_for_driver = 0.0
 
-            updated_points_for_drivers.append(
+            for season_gp_bet_points in season_grand_prixes_bets_points:
+                season_gp_bet = (
+                    self.season_grand_prix_bet_data_service.load_for_season_grand_prix(
+                        user_id=user_id,
+                        season=season,
+                        season_grand_prix_id=season_gp_bet_points.season_grand_prix_id,
+                    )
+                )
+                points_for_season_gp_bet = self.__get_points_for_driver(
+                    season_driver_id=season_driver_id,
+                    season_gp_bet=season_gp_bet,
+                    season_gp_bet_points=season_gp_bet_points,
+                ) if season_gp_bet is not None else 0.0
+                total_points_for_driver += points_for_season_gp_bet
+
+            points_for_drivers.append(
                 UserStatsPointsForDriver(
                     season_driver_id=season_driver_id,
-                    points=existing_points.points + new_points,
+                    points=total_points_for_driver,
                 )
             )
 
-        return updated_points_for_drivers
+        return points_for_drivers
 
     def __get_points_for_driver(
         self,

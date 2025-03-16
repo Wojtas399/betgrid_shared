@@ -52,11 +52,9 @@ class GrandPrixResultsTriggers:
                 season=season,
                 season_grand_prix_bet_points=season_gp_bet_points,
             )
-            self.user_stats_service.update_user_stats(
+            self.user_stats_service.calculate_stats_for_user_season(
                 user_id=user_id,
                 season=season,
-                season_gp_bet=season_gp_bet,
-                season_gp_bet_points=season_gp_bet_points,
             )
 
     def on_results_updated(
@@ -98,9 +96,7 @@ class GrandPrixResultsTriggers:
                     season=season,
                     season_grand_prix_bet_points=season_gp_bet_points,
                 )
-            self.user_stats_service.update_user_stats(
+            self.user_stats_service.calculate_stats_for_user_season(
                 user_id=user_id,
                 season=season,
-                season_gp_bet=season_gp_bet,
-                season_gp_bet_points=season_gp_bet_points,
             )
