@@ -39,23 +39,30 @@ class RaceBetPointsDto {
     required Map<String, dynamic> json,
   }) =>
       RaceBetPointsDto(
-        total: json[RaceBetPointsFields.total],
-        p1: json[RaceBetPointsFields.p1],
-        p2: json[RaceBetPointsFields.p2],
-        p3: json[RaceBetPointsFields.p3],
-        p10: json[RaceBetPointsFields.p10],
-        fastestLap: json[RaceBetPointsFields.fastestLap],
-        podiumAndP10: json[RaceBetPointsFields.podiumAndP10],
+        total: (json[RaceBetPointsFields.total] as num).toDouble(),
+        p1: (json[RaceBetPointsFields.p1] as num).toDouble(),
+        p2: (json[RaceBetPointsFields.p2] as num).toDouble(),
+        p3: (json[RaceBetPointsFields.p3] as num).toDouble(),
+        p10: (json[RaceBetPointsFields.p10] as num).toDouble(),
+        fastestLap: (json[RaceBetPointsFields.fastestLap] as num).toDouble(),
+        podiumAndP10:
+            (json[RaceBetPointsFields.podiumAndP10] as num).toDouble(),
         podiumAndP10Multiplier:
-            json[RaceBetPointsFields.podiumAndP10Multiplier],
-        totalDnf: json[RaceBetPointsFields.totalDnf],
-        dnfDriver1: json[RaceBetPointsFields.dnfDriver1],
-        dnfDriver2: json[RaceBetPointsFields.dnfDriver2],
-        dnfDriver3: json[RaceBetPointsFields.dnfDriver3],
-        dnfMultiplier: json[RaceBetPointsFields.dnfMultiplier],
-        safetyCar: json[RaceBetPointsFields.safetyCar],
-        redFlag: json[RaceBetPointsFields.redFlag],
-        safetyCarAndRedFlag: json[RaceBetPointsFields.safetyCarAndRedFlag],
+            json[RaceBetPointsFields.podiumAndP10Multiplier] != null
+                ? (json[RaceBetPointsFields.podiumAndP10Multiplier] as num)
+                    .toDouble()
+                : null,
+        totalDnf: (json[RaceBetPointsFields.totalDnf] as num).toDouble(),
+        dnfDriver1: (json[RaceBetPointsFields.dnfDriver1] as num).toDouble(),
+        dnfDriver2: (json[RaceBetPointsFields.dnfDriver2] as num).toDouble(),
+        dnfDriver3: (json[RaceBetPointsFields.dnfDriver3] as num).toDouble(),
+        dnfMultiplier: json[RaceBetPointsFields.dnfMultiplier] != null
+            ? (json[RaceBetPointsFields.dnfMultiplier] as num).toDouble()
+            : null,
+        safetyCar: (json[RaceBetPointsFields.safetyCar] as num).toDouble(),
+        redFlag: (json[RaceBetPointsFields.redFlag] as num).toDouble(),
+        safetyCarAndRedFlag:
+            (json[RaceBetPointsFields.safetyCarAndRedFlag] as num).toDouble(),
       );
 
   Map<String, dynamic> toFirestore() => {

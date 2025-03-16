@@ -63,34 +63,42 @@ class QualiBetPointsDto {
     required Map<String, dynamic> json,
   }) =>
       QualiBetPointsDto(
-        total: json[QualiBetPointsFields.total],
-        q3P1: json[QualiBetPointsFields.q3P1],
-        q3P2: json[QualiBetPointsFields.q3P2],
-        q3P3: json[QualiBetPointsFields.q3P3],
-        q3P4: json[QualiBetPointsFields.q3P4],
-        q3P5: json[QualiBetPointsFields.q3P5],
-        q3P6: json[QualiBetPointsFields.q3P6],
-        q3P7: json[QualiBetPointsFields.q3P7],
-        q3P8: json[QualiBetPointsFields.q3P8],
-        q3P9: json[QualiBetPointsFields.q3P9],
-        q3P10: json[QualiBetPointsFields.q3P10],
-        q2P11: json[QualiBetPointsFields.q2P11],
-        q2P12: json[QualiBetPointsFields.q2P12],
-        q2P13: json[QualiBetPointsFields.q2P13],
-        q2P14: json[QualiBetPointsFields.q2P14],
-        q2P15: json[QualiBetPointsFields.q2P15],
-        q1P16: json[QualiBetPointsFields.q1P16],
-        q1P17: json[QualiBetPointsFields.q1P17],
-        q1P18: json[QualiBetPointsFields.q1P18],
-        q1P19: json[QualiBetPointsFields.q1P19],
-        q1P20: json[QualiBetPointsFields.q1P20],
-        totalQ1: json[QualiBetPointsFields.totalQ1],
-        totalQ2: json[QualiBetPointsFields.totalQ2],
-        totalQ3: json[QualiBetPointsFields.totalQ3],
-        q1Multiplier: json[QualiBetPointsFields.q1Multiplier],
-        q2Multiplier: json[QualiBetPointsFields.q2Multiplier],
-        q3Multiplier: json[QualiBetPointsFields.q3Multiplier],
-        multiplier: json[QualiBetPointsFields.multiplier],
+        total: (json[QualiBetPointsFields.total] as num).toDouble(),
+        q3P1: (json[QualiBetPointsFields.q3P1] as num).toDouble(),
+        q3P2: (json[QualiBetPointsFields.q3P2] as num).toDouble(),
+        q3P3: (json[QualiBetPointsFields.q3P3] as num).toDouble(),
+        q3P4: (json[QualiBetPointsFields.q3P4] as num).toDouble(),
+        q3P5: (json[QualiBetPointsFields.q3P5] as num).toDouble(),
+        q3P6: (json[QualiBetPointsFields.q3P6] as num).toDouble(),
+        q3P7: (json[QualiBetPointsFields.q3P7] as num).toDouble(),
+        q3P8: (json[QualiBetPointsFields.q3P8] as num).toDouble(),
+        q3P9: (json[QualiBetPointsFields.q3P9] as num).toDouble(),
+        q3P10: (json[QualiBetPointsFields.q3P10] as num).toDouble(),
+        q2P11: (json[QualiBetPointsFields.q2P11] as num).toDouble(),
+        q2P12: (json[QualiBetPointsFields.q2P12] as num).toDouble(),
+        q2P13: (json[QualiBetPointsFields.q2P13] as num).toDouble(),
+        q2P14: (json[QualiBetPointsFields.q2P14] as num).toDouble(),
+        q2P15: (json[QualiBetPointsFields.q2P15] as num).toDouble(),
+        q1P16: (json[QualiBetPointsFields.q1P16] as num).toDouble(),
+        q1P17: (json[QualiBetPointsFields.q1P17] as num).toDouble(),
+        q1P18: (json[QualiBetPointsFields.q1P18] as num).toDouble(),
+        q1P19: (json[QualiBetPointsFields.q1P19] as num).toDouble(),
+        q1P20: (json[QualiBetPointsFields.q1P20] as num).toDouble(),
+        totalQ1: (json[QualiBetPointsFields.totalQ1] as num).toDouble(),
+        totalQ2: (json[QualiBetPointsFields.totalQ2] as num).toDouble(),
+        totalQ3: (json[QualiBetPointsFields.totalQ3] as num).toDouble(),
+        q1Multiplier: json[QualiBetPointsFields.q1Multiplier] != null
+            ? (json[QualiBetPointsFields.q1Multiplier] as num).toDouble()
+            : null,
+        q2Multiplier: json[QualiBetPointsFields.q2Multiplier] != null
+            ? (json[QualiBetPointsFields.q2Multiplier] as num).toDouble()
+            : null,
+        q3Multiplier: json[QualiBetPointsFields.q3Multiplier] != null
+            ? (json[QualiBetPointsFields.q3Multiplier] as num).toDouble()
+            : null,
+        multiplier: json[QualiBetPointsFields.multiplier] != null
+            ? (json[QualiBetPointsFields.multiplier] as num).toDouble()
+            : null,
       );
 
   Map<String, dynamic> toFirestore() => {

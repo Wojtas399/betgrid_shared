@@ -31,7 +31,7 @@ class SeasonGrandPrixBetPointsDto {
       userId: userId,
       season: season,
       seasonGrandPrixId: json[SeasonGrandPrixBetPointsFields.seasonGrandPrixId],
-      total: json[SeasonGrandPrixBetPointsFields.total],
+      total: (json[SeasonGrandPrixBetPointsFields.total] as num).toDouble(),
       quali: _mapQualiBetPointsFromFirestore(
         json[SeasonGrandPrixBetPointsFields.quali],
       ),
