@@ -10,6 +10,15 @@ class FirebaseSeasonTeamService {
     return snapshot.docs.map((doc) => doc.data());
   }
 
+  Future<SeasonTeamDto?> fetchById({
+    required String id,
+    required int season,
+  }) async {
+    final snapshot =
+        await _firebaseCollectionsReferences.seasonTeams(season).doc(id).get();
+    return snapshot.data();
+  }
+
   Future<SeasonTeamDto?> add({
     required int season,
     required String teamId,
