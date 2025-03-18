@@ -25,13 +25,13 @@ class FirebaseSeasonDriverService {
     required int season,
     required String driverId,
     required int driverNumber,
-    required String teamId,
+    required String seasonTeamId,
   }) async {
     final dto = SeasonDriverDto(
       season: season,
       driverId: driverId,
       driverNumber: driverNumber,
-      teamId: teamId,
+      seasonTeamId: seasonTeamId,
     );
     final docRef =
         await _firebaseCollectionsReferences.seasonDrivers(season).add(dto);

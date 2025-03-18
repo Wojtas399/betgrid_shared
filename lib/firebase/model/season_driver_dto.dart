@@ -3,14 +3,14 @@ class SeasonDriverDto {
   final int season;
   final String driverId;
   final int driverNumber;
-  final String teamId;
+  final String seasonTeamId;
 
   const SeasonDriverDto({
     this.id = '',
     required this.season,
     required this.driverId,
     required this.driverNumber,
-    required this.teamId,
+    required this.seasonTeamId,
   });
 
   factory SeasonDriverDto.fromFirestore({
@@ -23,19 +23,19 @@ class SeasonDriverDto {
       season: season,
       driverId: json[SeasonDriverFields.driverId],
       driverNumber: json[SeasonDriverFields.driverNumber],
-      teamId: json[SeasonDriverFields.teamId],
+      seasonTeamId: json[SeasonDriverFields.seasonTeamId],
     );
   }
 
   Map<String, dynamic> toFirestore() => {
         SeasonDriverFields.driverId: driverId,
         SeasonDriverFields.driverNumber: driverNumber,
-        SeasonDriverFields.teamId: teamId,
+        SeasonDriverFields.seasonTeamId: seasonTeamId,
       };
 }
 
 class SeasonDriverFields {
   static const driverId = 'driverId';
   static const driverNumber = 'driverNumber';
-  static const teamId = 'teamId';
+  static const seasonTeamId = 'seasonTeamId';
 }
