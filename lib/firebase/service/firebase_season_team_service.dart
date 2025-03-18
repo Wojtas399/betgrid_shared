@@ -12,11 +12,23 @@ class FirebaseSeasonTeamService {
 
   Future<SeasonTeamDto?> add({
     required int season,
-    required String teamId,
+    required String shortName,
+    required String fullName,
+    required String teamChief,
+    required String technicalChief,
+    required String chassis,
+    required String powerUnit,
+    required String baseHexColor,
   }) async {
     final dto = SeasonTeamDto(
       season: season,
-      teamId: teamId,
+      shortName: shortName,
+      fullName: fullName,
+      teamChief: teamChief,
+      technicalChief: technicalChief,
+      chassis: chassis,
+      powerUnit: powerUnit,
+      baseHexColor: baseHexColor,
     );
     final docRef =
         await _firebaseCollectionsReferences.seasonTeams(season).add(dto);
