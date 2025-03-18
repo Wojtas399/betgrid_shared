@@ -9,7 +9,6 @@ import 'model/season_driver_dto.dart';
 import 'model/season_grand_prix_dto.dart';
 import 'model/season_grand_prix_results_dto.dart';
 import 'model/season_team_dto.dart';
-import 'model/team_basic_info_dto.dart';
 import 'model/user_dto.dart';
 import 'model/user_stats_dto.dart';
 
@@ -47,24 +46,6 @@ class FirebaseCollectionsReferences {
             );
           },
           toFirestore: (GrandPrixBasicInfoDto dto, _) => dto.toFirestore(),
-        );
-  }
-
-  CollectionReference<TeamBasicInfoDto> teamsBasicInfo() {
-    return FirebaseFirestore.instance
-        .collection(_firebaseCollections.teamsBasicInfo)
-        .withConverter<TeamBasicInfoDto>(
-          fromFirestore: (snapshot, _) {
-            final data = snapshot.data();
-            if (data == null) {
-              throw 'TeamBasicInfo document does not exist';
-            }
-            return TeamBasicInfoDto.fromFirestore(
-              id: snapshot.id,
-              json: data,
-            );
-          },
-          toFirestore: (TeamBasicInfoDto dto, _) => dto.toFirestore(),
         );
   }
 
