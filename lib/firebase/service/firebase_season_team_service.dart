@@ -28,6 +28,7 @@ class FirebaseSeasonTeamService {
     required String chassis,
     required String powerUnit,
     required String baseHexColor,
+    required String carImgName,
   }) async {
     final dto = SeasonTeamDto(
       season: season,
@@ -38,6 +39,7 @@ class FirebaseSeasonTeamService {
       chassis: chassis,
       powerUnit: powerUnit,
       baseHexColor: baseHexColor,
+      carImgName: carImgName,
     );
     final docRef =
         await _firebaseCollectionsReferences.seasonTeams(season).add(dto);
