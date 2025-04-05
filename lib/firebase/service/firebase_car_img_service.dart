@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseCarImgService {
@@ -8,23 +7,16 @@ class FirebaseCarImgService {
     required int season,
     required String imgFileName,
   }) async {
-    return await _doesCarImgExists(season: season, imgFileName: imgFileName)
-        ? await FirebaseStorage.instance
-            .ref('${_storagePath(season)}/$imgFileName')
-            .getDownloadURL()
-        : null;
-  }
+    try {
+      return await FirebaseStorage.instance
+          .ref('${_storagePath(season)}/$imgFileName')
+          .getDownloadURL();
+    } on FirebaseException catch (e) {
+      if (e.code == 'object-not-found') {
+        return null;
+      }
 
-  Future<bool> _doesCarImgExists({
-    required int season,
-    required String imgFileName,
-  }) async {
-    final allCarImgs =
-        await FirebaseStorage.instance.ref(_storagePath(season)).listAll();
-
-    return allCarImgs.items.firstWhereOrNull(
-          (Reference reference) => reference.fullPath.contains(imgFileName),
-        ) !=
-        null;
+      rethrow;
+    }
   }
 }
