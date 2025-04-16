@@ -8,6 +8,7 @@ class SeasonTeamDto {
   final String chassis;
   final String powerUnit;
   final String baseHexColor;
+  final String logoImgName;
   final String carImgName;
 
   const SeasonTeamDto({
@@ -20,6 +21,7 @@ class SeasonTeamDto {
     required this.chassis,
     required this.powerUnit,
     required this.baseHexColor,
+    required this.logoImgName,
     required this.carImgName,
   });
 
@@ -38,6 +40,7 @@ class SeasonTeamDto {
       chassis: json[SeasonTeamFields.chassis],
       powerUnit: json[SeasonTeamFields.powerUnit],
       baseHexColor: json[SeasonTeamFields.baseHexColor],
+      logoImgName: json[SeasonTeamFields.logoImgName],
       carImgName: json[SeasonTeamFields.carImgName],
     );
   }
@@ -50,6 +53,7 @@ class SeasonTeamDto {
         SeasonTeamFields.chassis: chassis,
         SeasonTeamFields.powerUnit: powerUnit,
         SeasonTeamFields.baseHexColor: baseHexColor,
+        SeasonTeamFields.logoImgName: logoImgName,
         SeasonTeamFields.carImgName: carImgName,
       };
 }
@@ -62,5 +66,6 @@ class SeasonTeamFields {
   static const String chassis = 'chassis';
   static const String powerUnit = 'powerUnit';
   static const String baseHexColor = 'baseHexColor';
+  static const String logoImgName = 'logoImgName';
   static const String carImgName = 'carImgName';
 }

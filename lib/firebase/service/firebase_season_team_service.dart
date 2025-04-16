@@ -28,6 +28,7 @@ class FirebaseSeasonTeamService {
     required String chassis,
     required String powerUnit,
     required String baseHexColor,
+    required String logoImgName,
     required String carImgName,
   }) async {
     final dto = SeasonTeamDto(
@@ -39,6 +40,7 @@ class FirebaseSeasonTeamService {
       chassis: chassis,
       powerUnit: powerUnit,
       baseHexColor: baseHexColor,
+      logoImgName: logoImgName,
       carImgName: carImgName,
     );
     final docRef =
